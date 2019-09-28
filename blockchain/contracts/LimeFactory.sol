@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.11;
 
 
 /**
@@ -31,7 +31,7 @@ contract ERC721Receiver {
     address _operator,
     address _from,
     bytes32 _tokenId,
-    bytes _data
+    bytes memory _data
   )
     public
     returns(bytes4);
@@ -195,7 +195,7 @@ contract ERC721Basic is ERC165 {
     address _from,
     address _to,
     bytes32 _tokenId,
-    bytes _data
+    bytes memory _data
   )
     public;
 }
@@ -446,7 +446,7 @@ contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
     address _from,
     address _to,
     bytes32 _tokenId,
-    bytes _data
+    bytes memory _data
   )
     public
     canTransfer(_tokenId)
@@ -553,7 +553,7 @@ contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
     address _from,
     address _to,
     bytes32 _tokenId,
-    bytes _data
+    bytes memory _data
   )
     internal
     returns (bool)
@@ -616,7 +616,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken {
   /**
    * @dev Constructor function
    */
-  function ERC721Token () public {
+  constructor () public {
     name_ = 'Identity';
     symbol_ = 'IDT';
 
@@ -629,7 +629,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken {
    * @dev Gets the token name
    * @return string representing the token name
    */
-  function name() external view returns (string) {
+  function name() external view returns (string memory) {
     return name_;
   }
 
@@ -637,7 +637,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken {
    * @dev Gets the token symbol
    * @return string representing the token symbol
    */
-  function symbol() external view returns (string) {
+  function symbol() external view returns (string memory) {
     return symbol_;
   }
 
@@ -646,7 +646,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken {
    * Throws if the token ID does not exist. May return an empty string.
    * @param _tokenId uint256 ID of the token to query
    */
-  function tokenURI(bytes32 _tokenId) public view returns (string) {
+  function tokenURI(bytes32 _tokenId) public view returns (string memory) {
     require(exists(_tokenId));
     return tokenURIs[_tokenId];
   }
@@ -694,7 +694,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken {
    * @param _tokenId uint256 ID of the token to set its URI
    * @param _uri string URI to assign
    */
-  function _setTokenURI(bytes32 _tokenId, string _uri) internal {
+  function _setTokenURI(bytes32 _tokenId, string memory _uri) internal {
     require(exists(_tokenId));
     tokenURIs[_tokenId] = _uri;
   }
