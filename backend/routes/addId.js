@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-const ipfsClient = require("ipfs-http-client");
-const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
-var sendTransaction = require('./connectionEthereum');
+// const ipfsClient = require("ipfs-http-client");
+// const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
+// var sendTransaction = require('./connectionEthereum');
 const uuidv4 = require("uuid/v4");
 
 router.post('/', function (req, res, next) {
   var uuid_number = uuidv4();
   console.log(uuid_number)
-  console.log(req.body)
+  // console.log(req.body)
   // const content = {
   //   uuid: uuid_number,
   //   nom: req.body.textFields.nom,
