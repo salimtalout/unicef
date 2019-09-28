@@ -250,12 +250,8 @@ const styles = {
     marginRight: '1vw',
   },
   premLigne: {
-<<<<<<< HEAD
-    maxWidth: '10%'
-=======
     marginTop : '1vw',
     maxWidth : '10%'
->>>>>>> dd0e8c7f53dc214c2375d494b7cb21b5931eaee6
   },
   title: {
     fontWeight: 'bold',
