@@ -13,7 +13,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={muiTheme}>
         <Router>
-          <div >
+          <div style = {{backgroundColor: '#f1f1f1'}}>
             <Switch>
               <Route exact path='/' component={Welcome} />
               <Route exact path='/identity' component={UsersDashboard} />

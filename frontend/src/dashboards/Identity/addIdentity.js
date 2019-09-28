@@ -8,7 +8,6 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import Header from '../../header/header';
 import Loading from '../loading';
 
-
 export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
@@ -52,11 +51,11 @@ export default class AddIdentity extends Component {
     } else {
       reader.readAsBinaryString(files[0]);
       reader.onload = () => {
-        this.setState({
-          files: files,
-          data: reader.result,
-          dataHash: crypto.createHash('sha256').update(reader.result).digest('hex')
-        });
+        // this.setState({
+        //   files: files,
+        //   data: reader.result,
+        //   dataHash: crypto.createHash('sha256').update(reader.result).digest('hex')
+        // });
       }
     }
   }
@@ -64,7 +63,7 @@ export default class AddIdentity extends Component {
   displayForm = () => {
     return (
       <div>
-        <Paper style={styles}>
+        <Paper style={styles.paper}>
           <TextField
             key="1"
             name="nom"
@@ -85,6 +84,7 @@ export default class AddIdentity extends Component {
             key="3"
             name="sexe"
             label="Sexe de naissance"
+            defaultValue="Michel"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -101,6 +101,7 @@ export default class AddIdentity extends Component {
             name="lieuNaissance"
             key="9"
             label="Lieu et pays de naissance"
+            defaultValue="Michel"
             style={styles.textFields.large}
             onChange={this.handleInputChange.bind(this)}
           /><br />
@@ -108,6 +109,7 @@ export default class AddIdentity extends Component {
             key="5"
             name="couleurYeux"
             label="Couleur des yeux"
+            defaultValue="Michel"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           /><br />
@@ -115,12 +117,14 @@ export default class AddIdentity extends Component {
             key="6"
             name="parent1"
             label="Nom et prénom du parent 1"
+            defaultValue="Michel"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           /><br />
           <TextField
             key="7"
             name="parent2"
+            defaultValue="Michel"
             label="Nom et prénom du parent 2"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
@@ -128,6 +132,7 @@ export default class AddIdentity extends Component {
           <TextField
             key="8"
             name="enfants"
+            defaultValue="Michel"
             label="Nom(s) et prénom(s) des enfants (optionnel)"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
@@ -136,6 +141,7 @@ export default class AddIdentity extends Component {
             name="signatureOracle"
             key="12"
             label="Signature de l'oracle (juge, chef du village, officiel, etc.)"
+            defaultValue="Michel"
             style={styles.textFields.large}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -146,18 +152,28 @@ export default class AddIdentity extends Component {
             fullWidth
             rows='3'
             label="Commentaires"
+            defaultValue="Michel"
             style={styles.textFields.commentaire}
             onChange={this.handleInputChange.bind(this)}
-          /><br /><br />
-          <h1 style={styles.title}>Fichiers à uploader</h1>
-          {this.displayDropZone('Acte de naissance', 'acteNaissance')}<br />
-          {this.displayDropZone('Photo', 'photo')}<br />
-          {this.displayDropZone('Empreinte digitale', 'fingerprint')}<br />
-          {this.displayDropZone('Autre', 'donneesAutres')}
+          /><br />
+          <h1 style={styles.title} align='center'>Fichiers à téléchagrer</h1>
+          {this.displayDropZones()}
         </Paper>
       </div>
     )
   }
+
+  displayDropZones = () => {
+    return (
+      <div style={{ display: 'flex', paddingBottom: '1vw', justifyContent: 'center' }}>
+        {this.displayDropZone('Acte de naissance', 'acteNaissance')}
+        {this.displayDropZone('Photo', 'photo')}
+        {this.displayDropZone('Empreinte digitale', 'fingerprint')}
+        {this.displayDropZone('Autre', 'donneesAutres')}
+      </div>
+    )
+  }
+
 
   displayDropZone = (texte, name) => {
     return (
@@ -176,68 +192,6 @@ export default class AddIdentity extends Component {
     )
   }
 
-  sendFiles = async (
-    nom,
-    prenom,
-    sexe,
-    dateNaissance,
-    lieuNaissance,
-    couleurYeux,
-    parent1,
-    parent2,
-    enfants,
-    signatureOracle,
-    commentaire,
-    acteNaissance,
-    photo,
-    fingerprint,
-    donneesAutres,
-  ) => {
-    this.setState({ loading: true });
-    await fetch('http://localhost:3000/addId', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        // send files  acteNaissance, photo, fingerprint, donneesAutres
-        "textFields": {
-          "nom": nom,
-          "prenom": prenom,
-          "sexe": sexe,
-          "dateNaissance": dateNaissance,
-          "lieuNaissance": lieuNaissance,
-          "couleurYeux": couleurYeux,
-          "parent1": parent1,
-          "parent2": parent2,
-          "enfants": enfants,
-          "signatureOracle": signatureOracle,
-          "commentaire": commentaire
-        }
-      })
-    })
-      .then(() => {
-        this.setState({
-          loading: false,
-          answer: true,
-        })
-      })
-      .then(() => window.location.reload());
-  }
-
-  displayTxResult = () => {
-    let data;
-    if (this.state.loading & !this.state.answer) {
-      data = (
-        <div>
-          <Loading />
-        </div>
-      );
-    } else {
-      data = <div />;
-    }
-    return data;
-  };
 
   displayButton = () => {
     return (
@@ -287,33 +241,38 @@ export default class AddIdentity extends Component {
 }
 
 const styles = {
-  paperLeft: {
-    maxWidth: '650px',
-    height: '400px',
-    paddingRight: '5px',
-    paddingLeft: '5px',
-  },
-  paperRight: {
-    marginLeft: '39%',
-    height: '400px',
-    width: '550px',
+  paper: {
+    paddingTop: '1vw',
+    paddingLeft: '1vw',
+    paddingRight: '1vw',
+    marginLeft: '1vw',
+    marginTop: '1vw',
+    marginRight: '1vw',
   },
   premLigne: {
+<<<<<<< HEAD
     maxWidth: '10%'
+=======
+    marginTop : '1vw',
+    maxWidth : '10%'
+>>>>>>> dd0e8c7f53dc214c2375d494b7cb21b5931eaee6
   },
   title: {
     fontWeight: 'bold',
-    color: '#660033',
-    fontSize: '30px',
-    paddingLeft: '2px',
-    marginBottom: '7px',
-    marginTop: '0px'
+    color: '#000000',
+    fontSize: '2vw',
+    paddingLeft: '1vw',
+    marginBottom: '1vw',
+    marginTop: '1vx',
   },
   dropZone: {
     width: '350px',
     maxHeight: '400px',
-    paddingRight: '5px',
-    paddingLeft: '5px',
+    paddingRight: '1vw',
+    paddingLeft: '1vw',
+    paddingTop: '1vw',
+    paddingBottom: '1vw',
+    marginRight: '1vw',
   },
   textFields: {
     generic: {
@@ -340,11 +299,11 @@ const styles = {
   },
   button: {
     envoyer: {
-      paddingTop: '',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: 'auto',
-      marginBottom: 'auto'
+      marginBottom: '1vw',
+      paddingBottom: '1vw',
+      marginLeft: '50%',
+      marginRight: '50%',
+      // transform: "translate(-50%, 0%)"
     }
   },
 }
