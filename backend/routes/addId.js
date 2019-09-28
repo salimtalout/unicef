@@ -7,21 +7,33 @@ const uuidv4 = require("uuid/v4");
 
 router.post('/', async function (req, res, next) {
   var uuid_number = uuidv4();
+  var nom = req.body.textFields.nom;
+  var prenom = req.body.textFields.prenom;
+  var sexe = req.body.textFields.sexe;
+  var dateNaissance = req.body.textFields.dateNaissance;
+  var lieuNaissance = req.body.textFields.lieuNaissance;
+  var couleurYeux = req.body.textFields.couleurYeux;
+  var parent1 = req.body.textFields.parent1;
+  var parent2 = req.body.textFields.parent2;
+  var enfants = req.body.textFields.enfants;
+  var signatureOracle = req.body.textFields.signatureOracle;
+  var commentaire = req.body.textFields.commentaire;
+  
   const content = {
     uuid: uuid_number,
-    // nom: req.body.textFields.nom,
-    // prenom: req.body.textFields.prenom,
-    // sexe: req.body.textFields.sexe,
-    // dateNaissance: req.body.textFields.dateNaissance,
-    // lieuNaissance: req.body.textFields.lieuNaissance,
-    // couleurYeux: res.body.textFields.couleurYeux,
-    // parent1: req.body.textFields.parent1,
-    // parent2: req.body.textFields.parent2,
-    // enfants: req.body.textFields.enfants,
-    // signatureOracle: res.body.textFields.signatureOracle,
-    // commentaire: res.body.textFields.commentaire,
+    nom: nom,
+    prenom: prenom,
+    sexe: sexe,
+    dateNaissance: dateNaissance,
+    lieuNaissance: lieuNaissance,
+    couleurYeux: couleurYeux,
+    parent1: parent1,
+    parent2: parent2,
+    enfants: enfants,
+    signatureOracle: signatureOracle,
+    commentaire: commentaire,
     // acteNaissance: req.body.files.acteNaissance,
-    // photo: req.body.files.photo
+    // photo: req.body.files.photo,
     // fingerprint: res.body.files.fingerprint,
     // autres: req.body.files.autres,
   };

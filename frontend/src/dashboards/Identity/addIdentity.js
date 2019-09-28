@@ -14,15 +14,15 @@ export default class AddIdentity extends Component {
     this.state = {
       nom: 'Michel',
       prenom: 'Michel',
-      sexe: '',
-      dateNaissance: '',
-      lieuNaissance: '',
-      couleurYeux: '',
-      parent1: '',
-      parent2: '',
-      enfants: '',
-      signatureOracle: '',
-      commentaire: '',
+      sexe: 'Michel',
+      dateNaissance: 'Michel',
+      lieuNaissance: 'Michel',
+      couleurYeux: 'Michel',
+      parent1: 'Michel',
+      parent2: 'Michel',
+      enfants: 'Michel',
+      signatureOracle: 'Michel',
+      commentaire: 'Michel',
       acteNaissance: '',
       photo: '',
       fingerprint: '',
@@ -40,6 +40,20 @@ export default class AddIdentity extends Component {
       [name]: value
     });
   }
+
+  displayTxResult = () => {
+    let data;
+    if (this.state.loading & !this.state.answer) {
+      data = (
+        <div>
+          <Loading />
+        </div>
+      );
+    } else {
+      data = <div />;
+    }
+    return data;
+  };
 
   handleChange(files) {
     let reader = new FileReader();
@@ -192,6 +206,55 @@ export default class AddIdentity extends Component {
     )
   }
 
+  sendFiles = async (
+    nom,
+    prenom,
+    sexe,
+    dateNaissance,
+    lieuNaissance,
+    couleurYeux,
+    parent1,
+    parent2,
+    enfants,
+    signatureOracle,
+    commentaire,
+    acteNaissance,
+    photo,
+    fingerprint,
+    donneesAutres,
+  ) => {
+    this.setState({ loading: true });
+    await fetch('http://localhost:3000/addId', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // send files  acteNaissance, photo, fingerprint, donneesAutres
+        textFields: {
+          "nom": nom,
+          "prenom": prenom,
+          "sexe": sexe,
+          "dateNaissance": dateNaissance,
+          "lieuNaissance": lieuNaissance,
+          "couleurYeux": couleurYeux,
+          "parent1": parent1,
+          "parent2": parent2,
+          "enfants": enfants,
+          "signatureOracle": signatureOracle,
+          "commentaire": commentaire,
+        }
+      })
+    })
+      .then(() => {
+        this.setState({
+          loading: false,
+          answer: true,
+        })
+      })
+      .then(() => window.location.reload());
+  }
+
 
   displayButton = () => {
     return (
@@ -250,8 +313,8 @@ const styles = {
     marginRight: '1vw',
   },
   premLigne: {
-    marginTop : '1vw',
-    maxWidth : '10%'
+    marginTop: '1vw',
+    maxWidth: '10%'
   },
   title: {
     fontWeight: 'bold',
