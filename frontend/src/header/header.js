@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { logout } from '../js/actions/index';
-import { connect } from "react-redux";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,33 +8,12 @@ import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import { adminMainListItems } from './listItems';
-import logoSncf from '../../images/sncfLogo.svg';
+import ItemList from './list';
 
-function mapDispatchToProps(dispatch) {
-  return {
-    logout: () => dispatch(logout())
-  };
-}
-
-class ConnectedAdminTopBar extends Component {
+export default class Header extends Component {
   state = {
-    open: false,
-    open2: false,
-  };
-
-  handleClick() {
-    this.props.logout();
-    window.location.href = "/";
+    open: false
   }
-
-  handleDrawer2Open = () => {
-    this.setState({ open2: true });
-  };
-
-  handleDrawer2Close = () => {
-    this.setState({ open2: false });
-  };
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -69,9 +46,8 @@ class ConnectedAdminTopBar extends Component {
               noWrap
               className={"classes.title"}
             >
-              Gestion traçabilité des échanges - Modification de sillons
+              ID Cert
             </Typography>
-            <img alt="" src={logoSncf} align="center" style = {{position: 'relative', right: "-1750px", maxHeight : '50px'}}/>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -83,14 +59,12 @@ class ConnectedAdminTopBar extends Component {
             </IconButton>
           </div>
           <Divider />
-          <List>{adminMainListItems}</List>
+          <List>{ItemList}</List>
         </Drawer>
       </div>
     )
   }
 }
-
-const AdminTopBar = connect(null, mapDispatchToProps)(ConnectedAdminTopBar);
 
 const styles = {
   title: {
@@ -104,5 +78,3 @@ const styles = {
     position: "absolute"
   }
 };
-
-export default AdminTopBar;
