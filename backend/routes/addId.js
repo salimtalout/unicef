@@ -1,7 +1,8 @@
 var express = require('express');
-const ipfsClient = require("ipfs-http-client");
 var router = express.Router();
+const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
+var sendTransaction = require('./ethereumConnection');
 
 router.post('/', async function (req, res, next) {
   const content = {
@@ -24,6 +25,7 @@ router.post('/', async function (req, res, next) {
   };
   const results = await ipfs.add(JSON.stringify(content));
   const hash = results[0].hash;
+  await sendTransaction(req.body.uuid, hash);
 });
 
 module.exports = router;
