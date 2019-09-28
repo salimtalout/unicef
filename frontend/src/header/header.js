@@ -24,32 +24,42 @@ export default class Header extends Component {
     this.setState({ open: false });
   };
 
+  displayLogo = () => {
+    return(<div style = {styles.logo}>
+      <a href ="https://www.unicef.org/fr" target="_blank" rel="noopener noreferrer">
+        <img alt="logo" src={logoUnicef} align="center" style = {{maxHeight : '100px'}}/>
+      </a>
+    </div>
+    )
+  };
+
   render() {
     return (
       <div>
         <AppBar
           position="relative"
-          // color="default"
         >
-          <Toolbar disableGutters={!this.state.open} className={"classes.toolbar"}>
+          <Toolbar disableGutters={!this.state.open} className={"classes.toolbar"} style = {{height : '100px'}} >
             <IconButton
               color="inherit"
               aria-label="Open drawer"
+              size = 'medium'
               onClick={this.handleDrawerOpen}
             >
               <MenuIcon />
             </IconButton>
             <Typography
               component="h1"
-              variant="h6"
+              variant="h4"
               color="inherit"
               style={styles.title}
               noWrap
               className={"classes.title"}
+              onClick={() => window.location.href = "/"}
             >
-              ID Cert
-            </Typography>
-            <img alt="" src={logoUnicef} align="center" style = {{position: 'relative', right: "-1750px", maxHeight : '50px'}}/>
+              UNICEF BlockchainID
+            </Typography>          
+            {this.displayLogo()}
           </Toolbar>
         </AppBar>
         <Drawer
@@ -78,5 +88,11 @@ const styles = {
   rightButton: {
     right: 5,
     position: "absolute"
+  },
+  logo : {
+    position: "absolute",
+    top: "0%",
+    right :'0%',
+    maxHeight : '50px'
   }
 };

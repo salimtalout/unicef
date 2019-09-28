@@ -5,15 +5,35 @@ import muiTheme from '../theme/muiTheme';
 import TextField from '@material-ui/core/TextField';
 import { DropzoneArea } from 'material-ui-dropzone';
 import Header from '../header/header';
+import BackgroundImg from '../images/unicef_enfants.jpg'
 
 export default class Welcome extends Component {
-    render() {
-        return (
-          <div style={{}}>
-            <Header/>
-            <MuiThemeProvider theme={muiTheme}>
-            </MuiThemeProvider>
-          </div>
-        )
-    }
+  displayPage = () => {
+    return (
+      <div>
+        <img alt="children" src = {BackgroundImg} style={styles.image}/>
+      </div>
+    )
+  }
+
+  render() {
+      return (
+        <div style={{}}>
+          <Header/>
+          {this.displayPage()}
+          <MuiThemeProvider theme={muiTheme}>
+          </MuiThemeProvider>
+        </div>
+      )
+  }
+}
+
+const styles = {
+  image : {
+    position: 'relative',
+    width: '100%',
+    height: 'auto',
+    objectFit: 'cover',
+    marginTop: '5px',
+  }
 }
