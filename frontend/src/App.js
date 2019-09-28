@@ -1,15 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect  } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './js/store/index';
+// import { Provider } from 'react-redux';
+// import store from './js/store/index';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import muiTheme from './theme/muiTheme';
-import QueryId from './dashboards/Users/queryId';
-import AddIdentity from './dashboards/Users/addIdentity';
-import UsersDashboard from './dashboards/Users/users'
+import QueryId from './dashboards/Identity/queryIdentity';
+import AddIdentity from './dashboards/Identity/addIdentity';
+import UsersDashboard from './dashboards/Identity/identity';
 import Welcome from './dashboards/welcome';
 import Authority from './dashboards/Authority/authority';
 import AddAuthority from './dashboards/Authority/addAuthority';
@@ -18,7 +16,7 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={muiTheme}>
-        <Provider>
+        {/* <Provider> */}
           <Router>
             <div >
               <Switch>
@@ -31,7 +29,7 @@ export default class App extends Component {
               </Switch>
             </div>
           </Router>
-        </Provider>
+        {/* </Provider> */}
       </MuiThemeProvider>
     );
   }
