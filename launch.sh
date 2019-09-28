@@ -5,6 +5,8 @@ export BACK_FOLDER="$DIR/backend"
 export BLOCKCHAIN_FOLDER="$DIR/blockchain"
 
 start() {
+  docker-compose down
+  docker-compose up -d
   cd $BACK_FOLDER
     npm start &
   cd -
