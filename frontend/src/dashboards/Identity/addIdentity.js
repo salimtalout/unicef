@@ -199,22 +199,22 @@ export default class AddIdentity extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      // body: JSON.stringify({
-      //   // send files  acteNaissance, photo, fingerprint, donneesAutres
-      //   "textFields": {
-      //     "nom": nom,
-      //     "prenom": prenom,
-      //     "sexe": sexe,
-      //     "dateNaissance": dateNaissance,
-      //     "lieuNaissance": lieuNaissance,
-      //     "couleurYeux": couleurYeux,
-      //     "parent1": parent1,
-      //     "parent2": parent2,
-      //     "enfants": enfants,
-      //     "signatureOracle": signatureOracle,
-      //     "commentaire": commentaire
-      //   }
-      // })
+      body: JSON.stringify({
+        // send files  acteNaissance, photo, fingerprint, donneesAutres
+        "textFields": {
+          "nom": nom,
+          "prenom": prenom,
+          "sexe": sexe,
+          "dateNaissance": dateNaissance,
+          "lieuNaissance": lieuNaissance,
+          "couleurYeux": couleurYeux,
+          "parent1": parent1,
+          "parent2": parent2,
+          "enfants": enfants,
+          "signatureOracle": signatureOracle,
+          "commentaire": commentaire
+        }
+      })
     })
       .then(() => {
         this.setState({
