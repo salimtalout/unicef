@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
+const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -29,6 +31,9 @@ app.use('/addId', addIdRouter);
 app.use('/editId', editIdRouter);
 app.use('/getId', getIdRouter);
 app.use('/getAll', getAllRouter);
+app.use(cors());
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -5,29 +5,32 @@ const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
 var sendTransaction = require('./connectionEthereum');
 const uuidv4 = require("uuid/v4");
 
-router.post('/', async function (req, res, next) {
+router.post('/', function (req, res, next) {
   var uuid_number = uuidv4();
-  const content = {
-    uuid: uuid_number,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    dateNaissance: req.body.dateNaissance,
-    lieuNaissance: req.body.lieuNaissance,
-    acteNaissance: req.body.acteNaissance,
-    fingerprint: res.body.fingerprint,
-    signatureOracle: res.body.signatureOracle,
-    commentaire: res.body.commentaire,
-    couleurYeux: res.body.couleurYeux,
-    sexe: req.body.sexe,
-    parent1: req.body.parent1,
-    parent2: req.body.parent2,
-    enfants: req.body.enfants,
-    autres: req.body.autres,
-    photo: req.body.photo
-  };
-  const results = await ipfs.add(JSON.stringify(content));
-  const hash = results[0].hash;
-  await sendTransaction(uuid_number, hash);
+  console.log(uuid_number)
+  console.log(req.body)
+  // const content = {
+  //   uuid: uuid_number,
+  //   nom: req.body.textFields.nom,
+  //   prenom: req.body.textFields.prenom,
+  //   dateNaissance: req.body.textFields.dateNaissance,
+  //   lieuNaissance: req.body.textFields.lieuNaissance,
+  //   // acteNaissance: req.body.files.acteNaissance,
+  //   fingerprint: res.body.textFields.fingerprint,
+  //   // signatureOracle: res.body.files.signatureOracle,
+  //   commentaire: res.body.textFields.commentaire,
+  //   couleurYeux: res.body.textFields.couleurYeux,
+  //   sexe: req.body.textFields.sexe,
+  //   parent1: req.body.textFields.parent1,
+  //   parent2: req.body.textFields.parent2,
+  //   enfants: req.body.textFields.enfants,
+  //   // autres: req.body.files.autres,
+  //   // photo: req.body.files.photo
+  // };
+  // const results = ipfs.add(JSON.stringify(content));
+  // const hash = results[0].hash;
+  // console.log('hash is : '+ hash);
+  // sendTransaction(uuid_number, hash);
 });
 
 module.exports = router;
