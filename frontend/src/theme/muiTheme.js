@@ -13,7 +13,7 @@ const muiTheme = createMuiTheme({
     },
     primary: {
       light: '#1CE8B5',
-      main: '#660033',
+      main: '#1cabe2 ',
       dark: '#660033',
       contrastText: '#fff',
     }
