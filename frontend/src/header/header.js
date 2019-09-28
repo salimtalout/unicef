@@ -9,6 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ItemList from './list';
+import logoUnicef from '../images/unicef.jpg';
 
 export default class Header extends Component {
   state = {
@@ -28,7 +29,7 @@ export default class Header extends Component {
       <div>
         <AppBar
           position="relative"
-          color="default"
+          // color="default"
         >
           <Toolbar disableGutters={!this.state.open} className={"classes.toolbar"}>
             <IconButton
@@ -48,6 +49,7 @@ export default class Header extends Component {
             >
               ID Cert
             </Typography>
+            <img alt="" src={logoUnicef} align="center" style = {{position: 'relative', right: "-1750px", maxHeight : '50px'}}/>
           </Toolbar>
         </AppBar>
         <Drawer

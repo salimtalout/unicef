@@ -8,7 +8,6 @@ import UsersDashboard from './dashboards/Identity/identity';
 import Welcome from './dashboards/welcome';
 import Authority from './dashboards/Authority/authority';
 import AddAuthority from './dashboards/Authority/addAuthority';
-
 export default class App extends Component {
   render() {
     return (
