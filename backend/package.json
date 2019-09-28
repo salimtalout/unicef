@@ -12,6 +12,7 @@
     "http-errors": "~1.6.3",
     "ipfs-http-client": "^38.0.0",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "uuid": "^3.3.3"
   }
 }

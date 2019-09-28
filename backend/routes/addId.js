@@ -3,10 +3,12 @@ var router = express.Router();
 const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
 var sendTransaction = require('./connectionEthereum');
+const uuidv4 = require("uuid/v4");
 
 router.post('/', async function (req, res, next) {
+  var uuid_number = uuidv4();
   const content = {
-    uuid: req.body.uuid,
+    uuid: uuid_number,
     nom: req.body.nom,
     prenom: req.body.prenom,
     dateNaissance: req.body.dateNaissance,
@@ -25,7 +27,7 @@ router.post('/', async function (req, res, next) {
   };
   const results = await ipfs.add(JSON.stringify(content));
   const hash = results[0].hash;
-  await sendTransaction(req.body.uuid, hash);
+  await sendTransaction(uuid_number, hash);
 });
 
 module.exports = router;
