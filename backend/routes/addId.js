@@ -7,6 +7,7 @@ const uuidv4 = require("uuid/v4");
 
 router.post('/', async function (req, res, next) {
   var uuid_number = uuidv4();
+  console.log(uuid_number)
   var nom = req.body.textFields.nom;
   var prenom = req.body.textFields.prenom;
   var sexe = req.body.textFields.sexe;
@@ -18,7 +19,11 @@ router.post('/', async function (req, res, next) {
   var enfants = req.body.textFields.enfants;
   var signatureOracle = req.body.textFields.signatureOracle;
   var commentaire = req.body.textFields.commentaire;
-  
+  var acteNaissance = req.body.files.acteNaissance;
+  var photo = req.body.files.photo;
+  var fingerprint = req.body.files.fingerprint;
+  var autres = req.body.files.autres;
+
   const content = {
     uuid: uuid_number,
     nom: nom,
@@ -32,12 +37,11 @@ router.post('/', async function (req, res, next) {
     enfants: enfants,
     signatureOracle: signatureOracle,
     commentaire: commentaire,
-    // acteNaissance: req.body.files.acteNaissance,
-    // photo: req.body.files.photo,
-    // fingerprint: res.body.files.fingerprint,
-    // autres: req.body.files.autres,
+    acteNaissance: acteNaissance,
+    photo: photo,
+    fingerprint: fingerprint,
+    autres: autres
   };
-  console.log(content)
   const results = await ipfs.add(JSON.stringify(content));
   const hash = results[0].hash;
   console.log(hash)

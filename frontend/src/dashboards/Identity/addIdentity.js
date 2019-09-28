@@ -55,21 +55,65 @@ export default class AddIdentity extends Component {
     return data;
   };
 
-  handleChange(files) {
+  handleChangePhoto(files) {
     let reader = new FileReader();
     if (files.length === 0) {
       this.setState({
-        files: null,
-        data: null
+        photo: null
       });
     } else {
       reader.readAsBinaryString(files[0]);
       reader.onload = () => {
-        // this.setState({
-        //   files: files,
-        //   data: reader.result,
-        //   dataHash: crypto.createHash('sha256').update(reader.result).digest('hex')
-        // });
+        this.setState({
+          photo: reader.result
+        });
+      }
+    }
+  }
+  
+  handleChangeFinger(files) {
+    let reader = new FileReader();
+    if (files.length === 0) {
+      this.setState({
+        fingerprint: null
+      });
+    } else {
+      reader.readAsBinaryString(files[0]);
+      reader.onload = () => {
+        this.setState({
+          fingerprint: reader.result,
+        });
+      }
+    }
+  }
+  handleChangeAutres(files) {
+    let reader = new FileReader();
+    if (files.length === 0) {
+      this.setState({
+        donneesAutres: null
+      });
+    } else {
+      reader.readAsBinaryString(files[0]);
+      reader.onload = () => {
+        this.setState({
+          donneesAutres: reader.result,
+        });
+      }
+    }
+  }
+
+  handleChangeActe(files) {
+    let reader = new FileReader();
+    if (files.length === 0) {
+      this.setState({
+        acteNaissance: null
+      });
+    } else {
+      reader.readAsBinaryString(files[0]);
+      reader.onload = () => {
+        this.setState({
+          acteNaissance: reader.result,
+        });
       }
     }
   }
@@ -180,16 +224,15 @@ export default class AddIdentity extends Component {
   displayDropZones = () => {
     return (
       <div style={{ display: 'flex', paddingBottom: '1vw', justifyContent: 'center' }}>
-        {this.displayDropZone('Acte de naissance', 'acteNaissance')}
-        {this.displayDropZone('Photo', 'photo')}
-        {this.displayDropZone('Empreinte digitale', 'fingerprint')}
-        {this.displayDropZone('Autre', 'donneesAutres')}
+        {this.displayDropZoneActe('Acte de naissance', 'acteNaissance')}
+        {this.displayDropZonePhoto('Photo', 'photo')}
+        {this.displayDropZoneFinger('Empreinte digitale', 'fingerprint')}
+        {this.displayDropZoneAutres('Autre', 'donneesAutres')}
       </div>
     )
   }
 
-
-  displayDropZone = (texte, name) => {
+  displayDropZoneActe = (texte, name) => {
     return (
       <div>
         <Paper style={styles.dropZone}>
@@ -199,7 +242,58 @@ export default class AddIdentity extends Component {
             filesLimit={1}
             showFileNamesInPreview={false}
             dropzoneText={texte}
-            onChange={this.handleChange.bind(this)}
+            onChange={this.handleChangeActe.bind(this)}
+          />
+        </Paper>
+      </div>
+    )
+  }
+
+  displayDropZonePhoto = (texte, name) => {
+    return (
+      <div>
+        <Paper style={styles.dropZone}>
+          <DropzoneArea
+            key={name}
+            name={name}
+            filesLimit={1}
+            showFileNamesInPreview={false}
+            dropzoneText={texte}
+            onChange={this.handleChangePhoto.bind(this)}
+          />
+        </Paper>
+      </div>
+    )
+  }
+
+  displayDropZoneFinger = (texte, name) => {
+    return (
+      <div>
+        <Paper style={styles.dropZone}>
+          <DropzoneArea
+            key={name}
+            name={name}
+            filesLimit={1}
+            showFileNamesInPreview={false}
+            dropzoneText={texte}
+            onChange={this.handleChangeFinger.bind(this)}
+          />
+        </Paper>
+      </div>
+    )
+  }
+
+  displayDropZoneAutres = (texte, name) => {
+    return (
+      <div>
+        <Paper style={styles.dropZone}>
+          <DropzoneArea
+            key={name}
+            name={name}
+            filesLimit={1}
+            showFileNamesInPreview={false}
+            dropzoneText={texte}
+            onChange={this.handleChangeAutres.bind(this)}
           />
         </Paper>
       </div>
@@ -230,7 +324,12 @@ export default class AddIdentity extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // send files  acteNaissance, photo, fingerprint, donneesAutres
+        files: {
+          "acteNaissance": acteNaissance,
+          "photo": photo,
+          "fingerprint": fingerprint,
+          "autres": donneesAutres
+        },
         textFields: {
           "nom": nom,
           "prenom": prenom,
@@ -294,6 +393,7 @@ export default class AddIdentity extends Component {
       <div style={styles.root}>
         <Header />
         <MuiThemeProvider theme={muiTheme}>
+        {console.log(this.state.nom)}
           {this.displayForm()}<br />
           {this.displayButton()}
           {this.displayTxResult()}
