@@ -8,7 +8,6 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import Header from '../../header/header';
 import Loading from '../loading';
 
-
 export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
@@ -52,11 +51,11 @@ export default class AddIdentity extends Component {
     } else {
       reader.readAsBinaryString(files[0]);
       reader.onload = () => {
-        this.setState({
-          files: files,
-          data: reader.result,
-          dataHash: crypto.createHash('sha256').update(reader.result).digest('hex')
-        });
+        // this.setState({
+        //   files: files,
+        //   data: reader.result,
+        //   dataHash: crypto.createHash('sha256').update(reader.result).digest('hex')
+        // });
       }
     }
   }
@@ -64,7 +63,7 @@ export default class AddIdentity extends Component {
   displayForm = () => {
       return (          
           <div>
-          <Paper style={styles}>
+          <Paper style={styles.paper}>
             <TextField
               key="1"
               name="nom"
@@ -148,16 +147,25 @@ export default class AddIdentity extends Component {
               label="Commentaires"
               style={styles.textFields.commentaire}
               onChange={this.handleInputChange.bind(this)}
-            /><br /><br />
-          <h1 style={styles.title}>Fichiers à uploader</h1>
-          {this.displayDropZone('Acte de naissance', 'acteNaissance')}<br/>
-          {this.displayDropZone('Photo', 'photo')}<br/>
-          {this.displayDropZone('Empreinte digitale', 'fingerprint')}<br/>
-          {this.displayDropZone('Autre', 'donneesAutres')}
+            /><br />
+          <h1 style={styles.title} align = 'center'>Fichiers à téléchagrer</h1>
+          {this.displayDropZones()}
           </Paper>
         </div>
       )
     }
+
+    displayDropZones = () => {
+      return(
+        <div style = {{display : 'flex', paddingBottom : '1vw', justifyContent: 'center'}}>
+          {this.displayDropZone('Acte de naissance', 'acteNaissance')}
+          {this.displayDropZone('Photo', 'photo')}
+          {this.displayDropZone('Empreinte digitale', 'fingerprint')}
+          {this.displayDropZone('Autre', 'donneesAutres')}
+        </div>
+      )
+    }
+    
 
     displayDropZone = (texte, name) => {
       return (
@@ -273,33 +281,34 @@ export default class AddIdentity extends Component {
 }
 
 const styles = {
-  paperLeft: {
-    maxWidth: '650px',
-    height: '400px',
-    paddingRight: '5px',
-    paddingLeft: '5px',
-  },
-  paperRight: {
-    marginLeft: '39%',
-    height: '400px',
-    width: '550px',
+  paper : {
+    paddingTop : '1vw',
+    paddingLeft : '1vw',
+    paddingRight : '1vw',
+    marginLeft : '1vw',
+    marginTop : '1vw',
+    marginRight : '1vw',
   },
   premLigne: {
+    marginTop : '1vw',
     maxWidth : '10%'
   },
   title :{
     fontWeight: 'bold',
-    color: '#660033',
-    fontSize: '30px',
-    paddingLeft: '2px',
-    marginBottom: '7px',
-    marginTop: '0px'
+    color: '#000000',
+    fontSize: '2vw',
+    paddingLeft: '1vw',
+    marginBottom: '1vw',
+    marginTop: '1vx',
   },
   dropZone: {
     width: '350px',
     maxHeight: '400px',
-    paddingRight: '5px',
-    paddingLeft: '5px',
+    paddingRight: '1vw',
+    paddingLeft: '1vw',
+    paddingTop: '1vw',
+    paddingBottom: '1vw',
+    marginRight: '1vw',
   },
   textFields: {
     generic: {
@@ -326,11 +335,11 @@ const styles = {
   },
   button: {
     envoyer: {
-      paddingTop: '',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: 'auto',
-      marginBottom: 'auto'
+      marginBottom: '1vw',
+      paddingBottom: '1vw',
+      marginLeft : '50%',
+      marginRight : '50%',
+      // transform: "translate(-50%, 0%)"
     }
   },
 }
