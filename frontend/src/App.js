@@ -1,8 +1,5 @@
-// import './App.css';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect  } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-// import store from './js/store/index';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import muiTheme from './theme/muiTheme';
 import QueryId from './dashboards/Identity/queryIdentity';
@@ -16,20 +13,18 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={muiTheme}>
-        {/* <Provider> */}
-          <Router>
-            <div >
-              <Switch>
-                <Route exact path='/' component={Welcome} />
-                <Route exact path='/users' component={UsersDashboard} />
-                <Route path='/users/create' component={AddIdentity} />
-                <Route path='/users/query' component={QueryId} />
-                <Route exact path='/authority' component={Authority} />
-                <Route path='/authority/add' component={AddAuthority} />
-              </Switch>
-            </div>
-          </Router>
-        {/* </Provider> */}
+        <Router>
+          <div >
+            <Switch>
+              <Route exact path='/' component={Welcome} />
+              <Route exact path='/identity' component={UsersDashboard} />
+              <Route path='/identity/create' component={AddIdentity} />
+              <Route path='/identity/query' component={QueryId} />
+              <Route exact path='/authority' component={Authority} />
+              <Route path='/authority/add' component={AddAuthority} />
+            </Switch>
+          </div>
+        </Router>
       </MuiThemeProvider>
     );
   }
