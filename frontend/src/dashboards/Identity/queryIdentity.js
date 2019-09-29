@@ -18,6 +18,7 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Search from '@material-ui/icons/Search';
 import Photo from '@material-ui/icons/Photo';
 import Enfant from '../../images/enfant.jpg';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 export default class AddIdentity extends Component {
   constructor(props) {
@@ -29,7 +30,11 @@ export default class AddIdentity extends Component {
       open: true,
       openNum: null,
       openMedical: true,
-      openMedicalNum: null
+      openMedicalNum: null,
+      tailleNew : '',
+      poidsNew : '',
+      commentairesNew: '',
+      fileNewMed: null,
     }
   }
 
@@ -46,9 +51,50 @@ export default class AddIdentity extends Component {
     this.setState({ open: false, openNum: null });
   };
 
+  handleCloseMed = () => {
+    this.setState({ openMedical: false, openMedicalNum: null });
+  };
+
+
   handleOpenMedical = (id) => {
     this.setState({ openMedical: true, openMedicalNum: id});
   };
+
+  handleSendMed = (id,tailleNew, poidsNew, commentairesNew, filesNewMed) => {
+    // Appeler handleCloseMed() pour fermer la / les boites de dialogue à l'envoi des fichiers
+  }
+
+  handleChangeMed = (filesNewMed) => {
+    let reader = new FileReader();
+    if (filesNewMed.length === 0) {
+      this.setState({
+        fileNewMed: null
+      });
+    } else {
+      reader.readAsBinaryString(filesNewMed[0]);
+      reader.onload = () => {
+        this.setState({
+          fileNewMed: reader.result
+        });
+      }
+    }
+  }
+
+  handleChangePhoto(files) {
+    let reader = new FileReader();
+    if (files.length === 0) {
+      this.setState({
+        photo: null
+      });
+    } else {
+      reader.readAsBinaryString(files[0]);
+      reader.onload = () => {
+        this.setState({
+          photo: reader.result
+        });
+      }
+    }
+  }
 
   displayTxResult = () => {
     let data;
@@ -231,10 +277,19 @@ export default class AddIdentity extends Component {
                       Date de la visite : 
                     </Typography><br/>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Taille et poids : 
+                      Taille : 
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Poids : 
                     </Typography><br/>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Vaccins : 
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Groupe sanguin : 
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Allergie(s) : 
                     </Typography><br/>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Maladies particulières : 
@@ -289,9 +344,8 @@ export default class AddIdentity extends Component {
       return (
         <div>
           <Dialog
-            onClose={this.handleClose}
-            // aria-labelledby="customized-dialog-title"
-            open={this.state.open}
+            onClose={this.handleCloseMed}
+            open={this.state.openMedical}
             style = {styles.dialog}
             fullWidth = {true}
             maxWidth = {'sm'}
@@ -301,6 +355,67 @@ export default class AddIdentity extends Component {
                 <Typography color="textSecondary" variant = 'h3' gutterBottom style = {styles.dialogText.titleMed}>
                   Nouvelles données médicales
                 </Typography>
+                <TextField
+                  key="18"
+                  name="tailleNew"
+                  defaultValue="1m56"
+                  label="Taille"
+                  style={styles.textFields.medicalSmall}
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <TextField
+                  key="19"
+                  name="poidsNew"
+                  defaultValue="56kg"
+                  label="Poids"
+                  style={styles.textFields.medicalSmall}
+                  onChange={this.handleInputChange.bind(this)}
+                /><br />
+                <TextField
+                  key="21"
+                  name="vaccinNew"
+                  defaultValue="-"
+                  label="Vaccin(s)"
+                  style={styles.textFields.medicalSmall}
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <TextField
+                  key="25"
+                  name="groupeSanguinNew"
+                  defaultValue="-"
+                  label="Groupe sanguin"
+                  style={styles.textFields.medicalSmall}
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <TextField
+                  key="22"
+                  name="allergieNew"
+                  defaultValue="-"
+                  label="Allergie(s)"
+                  style={styles.textFields.medicalSmall}
+                  onChange={this.handleInputChange.bind(this)}
+                /><br />
+                <TextField
+                  key="20"
+                  name="commentairesNew"
+                  defaultValue=""
+                  multiline
+                  fullWidth
+                  rows='2'
+                  label="Commentaires"
+                  style={styles.textFields.medicalLarg}
+                  onChange={this.handleInputChange.bind(this)}
+                /><br />
+                <DropzoneArea
+                  key='fileNewMed'
+                  name='fileNewMed'
+                  filesLimit={1}
+                  showFileNamesInPreview={false}
+                  dropzoneText='Ajouter une radios, une ordonnance, ou autres'
+                  style = {styles.dropzoneMed}
+                  onChange={this.handleChangeMed.bind(this)}
+                />
+                <Button size = "medium" color = "primary" variant="contained" style = {{left : '41%',marginTop: '1vw', marginBottom : '0.3vw'}} onClick = {this.handleSendMed()}>Envoyer</Button><br/>
               </CardContent>
             </Card>
           </Dialog>
@@ -344,6 +459,23 @@ const styles = {
       marginBottom : '1vw',
       width : '16vw'
     },
+    medicalSmall : {
+      width : '13vw',
+      marginTop: '0.5vw',
+      marginRight: '0.8vw'
+    },
+    medicalLarg : {
+      width : '26.8vw',
+      marginTop: '0.5vw',
+      marginRight: '0.8vw',
+      marginBottom : '1vw'
+    },    
+  },
+  dropzoneMed : {
+    marginTop : '2vw',
+    width : '45px',
+    maxHeight : '40px',
+    textAlign : 'center'
   },
   button: {
     send : {
