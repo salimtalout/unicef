@@ -209,54 +209,51 @@ export default class AddIdentity extends Component {
             <div style = {{display : 'flex', justifyContent : 'center'}}>
               <Card>
                 <CardContent>
-                  {/* <DialogTitle id="customized-dialog-title"> */}
                     <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
                       Identité
                     </Typography>
                     <div style = {styles.image}/>
-                  {/* </DialogTitle> */}
-                  {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      ID : 
-                    </Typography>{this.state.files.uuid}
+                      <a style = {styles.content.titles}><strong>ID : </strong>{' '}{this.state.files.uuid}</a>
+                    </Typography>
                     <div style = {{display : 'flex',}}>
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Nom : 
-                      </Typography>{this.state.files.nom}
+                        
+                        <a style = {styles.content.titles}><strong>Nom : </strong>{' '}{this.state.files.nom}</a>
+                      </Typography>
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Prénom : 
-                      </Typography>{this.state.files.prenom}
+                        <a style = {styles.content.titles}><strong>Prénom : </strong>{' '}{this.state.files.prenom}</a>
+                      </Typography>
                     </div>
                     <div style = {{display : 'flex',}}>
+                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}> 
+                        <a style = {styles.content.titles}><strong>Sexe de naissance :</strong>{' '}{this.state.files.sexe}</a>
+                      </Typography>
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Sexe de naissance : 
-                      </Typography>{this.state.files.sexe}
-                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Date de naissance : 
-                      </Typography>{this.state.files.dateNaissance}
+                        <a style = {styles.content.titles}><strong>Date de naissance :</strong>{' '}{this.state.files.dateNaissance}</a>
+                      </Typography>
                     </div>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Ville et pays de naissance : 
-                    </Typography>{this.state.files.lieuNaissance}
+                      <a style = {styles.content.titles}><strong>Ville et pays de naissance : </strong>{' '}{this.state.files.lieuNaissance}</a>
+                    </Typography>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Couleur des yeux :
-                    </Typography>{this.state.files.couleurYeux}
+                      <a style = {styles.content.titles}><strong>Couleur des yeux : </strong>{' '}{this.state.files.couleurYeux}</a>
+                    </Typography>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Nom et prénom du parent 1 :
-                    </Typography>{this.state.files.parent1}
+                      <a style = {styles.content.titles}><strong>Nom et prénom du parent 1 :</strong>{' '}{this.state.files.parent1}</a>
+                    </Typography>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Nom et prénom du parent 2 :
-                    </Typography>{this.state.files.parent2}
+                      <a style = {styles.content.titles}><strong>Nom et prénom du parent 2 :</strong>{' '}{this.state.files.parent2}</a>
+                    </Typography>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Nom(s) et prénom(s) des enfants (optionnel) :
-                    </Typography>{this.state.files.enfants}
+                      <a style = {styles.content.titles}><strong>Nom(s) et prénom(s) des enfants (optionnel) :</strong>{' '}{this.state.files.enfants}</a>
+                    </Typography>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Signature de l'oracle (juge, chef du village, officiel, etc.) :
-                    </Typography>{this.state.files.signatureOracle}
+                    <a style = {styles.content.titles}><strong>Signature de l'oracle (juge, chef du village, officiel, etc.) :</strong>{' '}{this.state.files.signatureOracle}</a>
+                    </Typography>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Commentaire :
-                    </Typography>{this.state.files.commentaire}
-                  {/* </DialogContent> */}
+                      <a style = {styles.content.titles}><strong>Commentaire :</strong>{' '}{this.state.files.commentaire}</a>
+                    </Typography>
                 </CardContent>
                 <div style = {{display : 'flex', justifyContent: 'center' }}>
                   <CardActions style = {styles.dialogActions}>
@@ -515,7 +512,8 @@ const styles = {
       textAlign : 'center'
     },
     content: {
-      fontSize : '1vw'
+      fontSize : '1vw',
+      display : 'flex'
     },
     line : {
       display :'flex'
@@ -528,5 +526,10 @@ const styles = {
     marginTop: '5px',
     // backgroundSize : 'cover'
     backgroundImage : `url(${Enfant})`
+  },
+  content : {
+    title : {
+      fontWeight : 'strong'
+    }
   }
 }
