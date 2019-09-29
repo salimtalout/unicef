@@ -24,7 +24,7 @@ export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id : 'f02-a13f-a7feb5d48a28',
+      id : '2c4-9e7e-8cfaf361f36b',
       loading : false,
       answer : false,
       open: false,
@@ -207,6 +207,10 @@ export default class AddIdentity extends Component {
             maxWidth = {'xl'}
           >
             <div style = {{display : 'flex', justifyContent : 'center'}}>
+              <Card style = {{justifiContent : 'center'}}>
+                <img alt="child" src = {Enfant} style={styles.image}/><br/>
+                <Button size = "big" variant = "contained" color = "primary" href ='https://kovan.etherscan.io/address/0x40eeb80c81bf08505643e621553c698b3f6348dc#events' target="_blank" rel="noopener noreferrer" style = {{marginLeft : '2vw'}} >Blockchain</Button>
+              </Card>
               <Card>
                 <CardContent>
                     <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
@@ -520,10 +524,13 @@ const styles = {
     }
   },
   image : {
-    maxWidth: '100px',
-    maxHeight : '250px',
+    maxWidth: '200px',
+    maxHeight : '450px',
     textAlign : 'right',
     marginTop: '5px',
+    marginRight: '5px',
+    marginLeft: '5px',
+    marginBottom: '15px',
     // backgroundSize : 'cover'
     backgroundImage : `url(${Enfant})`
   },
