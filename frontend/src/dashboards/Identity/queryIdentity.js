@@ -23,10 +23,10 @@ export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id : '583ba135-fc4c-4171-b445-8f660ba5d1e1',
+      id : 'f02-a13f-a7feb5d48a28',
       loading : false,
       answer : false,
-      open: true,
+      open: false,
       openNum: null
     }
   }
@@ -65,7 +65,7 @@ export default class AddIdentity extends Component {
             name="id"
             key="2"
             label="Identifiant"
-            defaultValue="583ba135-fc4c-4171-b445-8f660ba5d1e1"
+            defaultValue="f02-a13f-a7feb5d48a28"
             style={styles.textFields.id}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -107,15 +107,13 @@ export default class AddIdentity extends Component {
     id
     ) => {
       this.setState({ loading: true });
-      await fetch('http://localhost:3000/queryId', {
-        method: 'GET',
+      await fetch('http://localhost:3000/getId', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          textFields: {
             'id' : id
-          }
         })
       })
       .then(() => {
