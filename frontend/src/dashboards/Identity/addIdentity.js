@@ -158,7 +158,7 @@ export default class AddIdentity extends Component {
           <TextField
             name="lieuNaissance"
             key="9"
-            label="Lieu et pays de naissance"
+            label="Ville et pays de naissance"
             defaultValue="Michel"
             style={styles.textFields.large}
             onChange={this.handleInputChange.bind(this)}
@@ -214,7 +214,7 @@ export default class AddIdentity extends Component {
             style={styles.textFields.commentaire}
             onChange={this.handleInputChange.bind(this)}
           /><br />
-          <h1 style={styles.title} align='center'>Fichiers à téléchagrer</h1>
+          <h1 style={styles.title} align='center'>Fichiers à télécharger</h1>
           {this.displayDropZones()}
         </Paper>
       </div>
@@ -360,7 +360,7 @@ export default class AddIdentity extends Component {
       <div style={styles.button.envoyer} >
         <Button
           variant="contained"
-          color="default"
+          color="primary"
           size="large"
           onClick={() => {
             this.sendFiles(
@@ -414,7 +414,7 @@ const styles = {
   },
   premLigne: {
     marginTop: '1vw',
-    maxWidth: '10%'
+    width: '4vw'
   },
   title: {
     fontWeight: 'bold',
