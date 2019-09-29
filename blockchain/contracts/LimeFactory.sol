@@ -7,6 +7,7 @@ contract Validator {
     struct Identity
     {
         mapping (address => bool) canCreateNewIdentity;
+        bytes32 hashStructure;
         uint256 birthDate;
         bytes32 placeOfBirth;
         //bytes32 hashDataFingerPrint;
@@ -71,8 +72,9 @@ contract Validator {
         }
     }
     
-    function newIdentity (bytes32 id, address NewIdentity, uint256 BirthDate, bytes32 PlaceOfBirth, bytes32 HashUuidParents, bytes32 HashBirthCertificate, bytes32 HashPackageInformationOffChain) public {
+    function newIdentity (bytes32 id, bytes32 HashStructure, address NewIdentity, uint256 BirthDate, bytes32 PlaceOfBirth, bytes32 HashUuidParents, bytes32 HashBirthCertificate, bytes32 HashPackageInformationOffChain) public {
         require (uuid[id].canCreateNewIdentity[msg.sender] = true);
+        uuid[id].hashStructure=HashStructure;
         uuid[id].canCreateNewIdentity[NewIdentity]=false;
         uuid[id].birthDate=BirthDate;
         uuid[id].placeOfBirth=PlaceOfBirth;
@@ -87,6 +89,17 @@ contract Validator {
         uuid[id].hashPackageInformationOffChain=newHashPackageInformationOffChain;
         return(true);
     }
-        
+    
+    function updateHashStructure (bytes32 id, address validator, bytes32 newHashStructure) public returns (bool){
+        require (uuid[id].canCreateNewIdentity[validator]== true);
+        uuid[id].hashStructure=newHashStructure;
+        return(true);
+    }
+    
+    function showHashStructure(bytes32 id) public view returns (bytes32){
+        return (uuid[id].hashStructure);
+    }
+    
+    
 
 }
