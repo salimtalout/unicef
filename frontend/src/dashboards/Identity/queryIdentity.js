@@ -551,6 +551,7 @@ export default class AddIdentity extends Component {
     return (
       <div style={styles.root}>
         {console.log(this.state.files)}
+        {console.log(this.state.photo)}
         <Header />
         <MuiThemeProvider theme={muiTheme}>
           {this.displayItems()}

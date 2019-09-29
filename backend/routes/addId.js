@@ -1,17 +1,18 @@
-var express = require('express');
-const ethers = require('ethers');
+var express = require("express");
+const ethers = require("ethers");
 const ipfsClient = require("ipfs-http-client");
-var sendTransaction = require('./connectionEthereum');
+var sendTransaction = require("./connectionEthereum");
 const uuidv4 = require("uuid/v4");
 var router = express.Router();
 const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
-const address = '0x1223dE063742092E56Bd6FcE0683585B66c9005B'
+const address = "0x1223dE063742092E56Bd6FcE0683585B66c9005B";
 //const keccak256 = require('keccak256');
+const crypto = require("crypto");
 
-router.post('/', async function (req, res, next) {
+router.post("/", async function(req, res, next) {
   var uuid_number = uuidv4().slice(15);
   var uuid_number2 = uuidv4().slice(15);
-  console.log(uuid_number)
+  console.log(uuid_number);
   var nom = req.body.textFields.nom;
   var prenom = req.body.textFields.prenom;
   var sexe = req.body.textFields.sexe;
@@ -27,7 +28,18 @@ router.post('/', async function (req, res, next) {
   var photo = req.body.files.photo;
   var fingerprint = req.body.files.fingerprint;
   var autres = req.body.files.autres;
-  var uuid_juge = ethers.utils.formatBytes32String("de4261b1-a4a7-4662-92d5-5357");
+  var uuid_juge = ethers.utils.formatBytes32String(
+    "de4261b1-a4a7-4662-92d5-5357"
+  );
+
+  let hashNaissance = crypto
+    .createHash("md5")
+    .update(acteNaissance)
+    .digest("hex")
+    .substring(0, 10);
+
+  console.log("hash naissance");
+  console.log(hashNaissance);
 
   const content = {
     uuid: uuid_number,
@@ -52,11 +64,21 @@ router.post('/', async function (req, res, next) {
   const hash1 = hash.substring(0, 31);
   const hash2 = hash.substring(31);
   const date = Date.now();
-  console.log(date)
-  console.log(hash)
-  tx_hash = await sendTransaction(uuid_juge, ethers.utils.formatBytes32String(uuid_number), ethers.utils.formatBytes32String(hash1), ethers.utils.formatBytes32String(hash2), address, date, ethers.utils.formatBytes32String(lieuNaissance), ethers.utils.formatBytes32String(uuid_number2), ethers.utils.formatBytes32String(('hex')));
-  console.log(tx_hash)
-  res.send()
+  console.log(date);
+  console.log(hash);
+  tx_hash = await sendTransaction(
+    uuid_juge,
+    ethers.utils.formatBytes32String(uuid_number),
+    ethers.utils.formatBytes32String(hash1),
+    ethers.utils.formatBytes32String(hash2),
+    address,
+    date,
+    ethers.utils.formatBytes32String(lieuNaissance),
+    ethers.utils.formatBytes32String(uuid_number2),
+    ethers.utils.formatBytes32String(hashNaissance.toString("hex"))
+  );
+  console.log(tx_hash);
+  res.send();
 });
 
 module.exports = router;
