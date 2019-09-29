@@ -12,17 +12,17 @@ export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nom: 'Michel',
-      prenom: 'Michel',
-      sexe: 'Michel',
-      dateNaissance: 'Michel',
-      lieuNaissance: 'Michel',
-      couleurYeux: 'Michel',
+      nom: '',
+      prenom: '',
+      sexe: '',
+      dateNaissance: '2019-01-01',
+      lieuNaissance: 'Paris, France',
+      couleurYeux: 'Marrons',
       parent1: 'Michel',
-      parent2: 'Michel',
-      enfants: 'Michel',
-      signatureOracle: 'Michel',
-      commentaire: 'Michel',
+      parent2: 'Michelle',
+      enfants: '-',
+      signatureOracle: '-',
+      commentaire: '-',
       acteNaissance: '',
       photo: '',
       fingerprint: '',
@@ -126,7 +126,6 @@ export default class AddIdentity extends Component {
             key="1"
             name="nom"
             label="Nom"
-            defaultValue="Michel"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -134,7 +133,6 @@ export default class AddIdentity extends Component {
             key="2"
             name="prenom"
             label="Prenom"
-            defaultValue="Michel"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -142,7 +140,6 @@ export default class AddIdentity extends Component {
             key="3"
             name="sexe"
             label="Sexe de naissance"
-            defaultValue="Michel"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -159,7 +156,7 @@ export default class AddIdentity extends Component {
             name="lieuNaissance"
             key="9"
             label="Ville et pays de naissance"
-            defaultValue="Michel"
+            defaultValue="Paris, France"
             style={styles.textFields.large}
             onChange={this.handleInputChange.bind(this)}
           /><br />
@@ -167,7 +164,7 @@ export default class AddIdentity extends Component {
             key="5"
             name="couleurYeux"
             label="Couleur des yeux"
-            defaultValue="Michel"
+            defaultValue="Marrons"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
           /><br />
@@ -182,7 +179,7 @@ export default class AddIdentity extends Component {
           <TextField
             key="7"
             name="parent2"
-            defaultValue="Michel"
+            defaultValue="Michelle"
             label="Nom et prénom du parent 2"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
@@ -190,7 +187,7 @@ export default class AddIdentity extends Component {
           <TextField
             key="8"
             name="enfants"
-            defaultValue="Michel"
+            defaultValue="-"
             label="Nom(s) et prénom(s) des enfants (optionnel)"
             style={styles.textFields.premLigne}
             onChange={this.handleInputChange.bind(this)}
@@ -199,7 +196,7 @@ export default class AddIdentity extends Component {
             name="signatureOracle"
             key="12"
             label="Signature de l'oracle (juge, chef du village, officiel, etc.)"
-            defaultValue="Michel"
+            defaultValue="-"
             style={styles.textFields.large}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -210,7 +207,7 @@ export default class AddIdentity extends Component {
             fullWidth
             rows='3'
             label="Commentaires"
-            defaultValue="Michel"
+            defaultValue="-"
             style={styles.textFields.commentaire}
             onChange={this.handleInputChange.bind(this)}
           /><br />
