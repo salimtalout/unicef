@@ -1,43 +1,42 @@
-import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import { MuiThemeProvider } from '@material-ui/core';
-import muiTheme from '../../theme/muiTheme';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/CardContent';
-import Header from '../../header/header';
-import Loading from '../loading';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
-import Search from '@material-ui/icons/Search';
-import Photo from '@material-ui/icons/Photo';
-import Enfant from '../../images/enfant.jpg';
-import { DropzoneArea } from 'material-ui-dropzone';
+import React, { Component } from "react";
+import Paper from "@material-ui/core/Paper";
+import { MuiThemeProvider } from "@material-ui/core";
+import muiTheme from "../../theme/muiTheme";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/CardContent";
+import Header from "../../header/header";
+import Loading from "../loading";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import Search from "@material-ui/icons/Search";
+import Photo from "@material-ui/icons/Photo";
+import Enfant from "../../images/enfant.jpg";
+import { DropzoneArea } from "material-ui-dropzone";
 
 export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id : 'f02-a13f-a7feb5d48a28',
-      loading : false,
-      answer : false,
+      id: "f02-a13f-a7feb5d48a28",
+      loading: false,
+      answer: false,
       open: false,
       openNum: null,
       openMedical: false,
       openMedicalNum: null,
       files: [[]],
-      tailleNew : '',
-      poidsNew : '',
-      commentairesNew: '',
-      fileNewMed: null,
-
-    }
+      tailleNew: "",
+      poidsNew: "",
+      commentairesNew: "",
+      fileNewMed: null
+    };
   }
 
   handleInputChange(e) {
@@ -57,16 +56,15 @@ export default class AddIdentity extends Component {
     this.setState({ openMedical: false, openMedicalNum: null });
   };
 
-
-  handleOpenMedical = (id) => {
-    this.setState({ openMedical: true, openMedicalNum: id});
+  handleOpenMedical = id => {
+    this.setState({ openMedical: true, openMedicalNum: id });
   };
 
-  handleSendMed = (id,tailleNew, poidsNew, commentairesNew, filesNewMed) => {
+  handleSendMed = (id, tailleNew, poidsNew, commentairesNew, filesNewMed) => {
     // Appeler handleCloseMed() pour fermer la / les boites de dialogue à l'envoi des fichiers
-  }
+  };
 
-  handleChangeMed = (filesNewMed) => {
+  handleChangeMed = filesNewMed => {
     let reader = new FileReader();
     if (filesNewMed.length === 0) {
       this.setState({
@@ -78,9 +76,9 @@ export default class AddIdentity extends Component {
         this.setState({
           fileNewMed: reader.result
         });
-      }
+      };
     }
-  }
+  };
 
   handleChangePhoto(files) {
     let reader = new FileReader();
@@ -94,7 +92,7 @@ export default class AddIdentity extends Component {
         this.setState({
           photo: reader.result
         });
-      }
+      };
     }
   }
 
@@ -113,63 +111,60 @@ export default class AddIdentity extends Component {
   };
 
   displayTextfields = () => {
-    return(
-      <div style = {{display : 'flex'}}>
-          <TextField
-            name="id"
-            key="2"
-            label="Identifiant"
-            defaultValue="f02-a13f-a7feb5d48a28"
-            style={styles.textFields.id}
-            onChange={this.handleInputChange.bind(this)}
-          />
-          <h3 style = {styles.ou}>OU</h3>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            style={styles.button.fingerprint}
-          >
-            Fingerprint Scanner   
-            <FingerprintIcon style = {{paddingLeft:  '0.3vw'}} />
-          </Button>
+    return (
+      <div style={{ display: "flex" }}>
+        <TextField
+          name="id"
+          key="2"
+          label="Identifiant"
+          defaultValue="f02-a13f-a7feb5d48a28"
+          style={styles.textFields.id}
+          onChange={this.handleInputChange.bind(this)}
+        />
+        <h3 style={styles.ou}>OU</h3>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          style={styles.button.fingerprint}
+        >
+          Fingerprint Scanner
+          <FingerprintIcon style={{ paddingLeft: "0.3vw" }} />
+        </Button>
       </div>
-    )
-  }
-  
+    );
+  };
+
   displayButton = () => {
     return (
-      <div style={styles.button.send} >
+      <div style={styles.button.send}>
         <Button
           variant="contained"
           color="primary"
           size="large"
           onClick={() => {
-            this.sendFiles(
-              this.state.id
-              );
-            }}
+            this.sendFiles(this.state.id);
+          }}
         >
           Envoyer
-          <Search style = {{paddingLeft:  '0.3vw'}} />
+          <Search style={{ paddingLeft: "0.3vw" }} />
         </Button>
       </div>
-    )
-  }
-  
-  sendFiles = async (
-    id
-    ) => {
-      this.setState({ loading: true });
-      await fetch('http://localhost:3000/getId', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'id' : id
-        })
+    );
+  };
+
+  sendFiles = async id => {
+    this.setState({ loading: true });
+    console.log("id is " + id);
+    await fetch("http://localhost:3000/getId", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id
       })
+    })
       .then(res => res.json())
       .then(values => {
         this.setState({ files: values });
@@ -178,22 +173,26 @@ export default class AddIdentity extends Component {
         this.setState({
           loading: false,
           answer: true,
-          open: true,
-        })
-      })
-    }
-    
-    displayItems = () => {
-      return(
-        <div style = {{display : 'flex', justifyContent: 'center'}}>
+          open: true
+        });
+      });
+  };
+
+  displayItems = () => {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Paper style={styles.paper}>
           {this.displayTextfields()}
           {this.displayButton()}
         </Paper>
       </div>
-    )
+    );
+  };
+
+  register_file() {
+    
   }
-  
+
   renderDialog = () => {
     try {
       return (
@@ -202,148 +201,308 @@ export default class AddIdentity extends Component {
             onClose={this.handleClose}
             // aria-labelledby="customized-dialog-title"
             open={this.state.open}
-            style = {styles.dialog}
-            fullWidth = {true}
-            maxWidth = {'xl'}
+            style={styles.dialog}
+            fullWidth={true}
+            maxWidth={"xl"}
           >
-            <div style = {{display : 'flex', justifyContent : 'center'}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <Card>
                 <CardContent>
                   {/* <DialogTitle id="customized-dialog-title"> */}
-                    <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
-                      Identité
-                    </Typography>
-                    <div style = {styles.image}/>
+                  <Typography
+                    color="textSecondary"
+                    variant="h1"
+                    gutterBottom
+                    style={styles.dialogText.title}
+                  >
+                    Identité
+                  </Typography>
+                  <div style={styles.image} />
                   {/* </DialogTitle> */}
                   {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      ID : 
-                    </Typography>{this.state.files.uuid}
-                    <div style = {{display : 'flex',}}>
-                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Nom : 
-                      </Typography>{this.state.files.nom}
-                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Prénom : 
-                      </Typography>{this.state.files.prenom}
-                    </div>
-                    <div style = {{display : 'flex',}}>
-                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Sexe de naissance : 
-                      </Typography>{this.state.files.sexe}
-                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                        Date de naissance : 
-                      </Typography>{this.state.files.dateNaissance}
-                    </div>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Ville et pays de naissance : 
-                    </Typography>{this.state.files.lieuNaissance}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Couleur des yeux :
-                    </Typography>{this.state.files.couleurYeux}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Nom et prénom du parent 1 :
-                    </Typography>{this.state.files.parent1}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Nom et prénom du parent 2 :
-                    </Typography>{this.state.files.parent2}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Nom(s) et prénom(s) des enfants (optionnel) :
-                    </Typography>{this.state.files.enfants}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Signature de l'oracle (juge, chef du village, officiel, etc.) :
-                    </Typography>{this.state.files.signatureOracle}
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Commentaire :
-                    </Typography>{this.state.files.commentaire}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    ID :
+                  </Typography>
+                  {this.state.files.uuid}
+                  <div style={{ display: "flex" }}>
+                    <Typography
+                      color="textSecondary"
+                      gutterBottom
+                      style={styles.dialogText.content}
+                    >
+                      Nom :
+                    </Typography>
+                    {this.state.files.nom}
+                    <Typography
+                      color="textSecondary"
+                      gutterBottom
+                      style={styles.dialogText.content}
+                    >
+                      Prénom :
+                    </Typography>
+                    {this.state.files.prenom}
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <Typography
+                      color="textSecondary"
+                      gutterBottom
+                      style={styles.dialogText.content}
+                    >
+                      Sexe de naissance :
+                    </Typography>
+                    {this.state.files.sexe}
+                    <Typography
+                      color="textSecondary"
+                      gutterBottom
+                      style={styles.dialogText.content}
+                    >
+                      Date de naissance :
+                    </Typography>
+                    {this.state.files.dateNaissance}
+                  </div>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Ville et pays de naissance :
+                  </Typography>
+                  {this.state.files.lieuNaissance}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Couleur des yeux :
+                  </Typography>
+                  {this.state.files.couleurYeux}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Nom et prénom du parent 1 :
+                  </Typography>
+                  {this.state.files.parent1}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Nom et prénom du parent 2 :
+                  </Typography>
+                  {this.state.files.parent2}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Nom(s) et prénom(s) des enfants (optionnel) :
+                  </Typography>
+                  {this.state.files.enfants}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Signature de l'oracle (juge, chef du village, officiel,
+                    etc.) :
+                  </Typography>
+                  {this.state.files.signatureOracle}
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Commentaire :
+                  </Typography>
+                  {this.state.files.commentaire}
                   {/* </DialogContent> */}
                 </CardContent>
-                <div style = {{display : 'flex', justifyContent: 'center' }}>
-                  <CardActions style = {styles.dialogActions}>
-                    <Button size = "medium" color = "primary">Acte de naissance</Button>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <CardActions style={styles.dialogActions}>
+                    <Button size="medium" color="primary" onClick={this.register_file(this.state.files.acteNaissance)}>
+                      Acte de naissance
+                    </Button>
                   </CardActions>
                   <CardActions>
-                    <Button size = "medium" color = "primary">Photo</Button>
+                    <Button size="medium" color="primary">
+                      Photo
+                    </Button>
                   </CardActions>
                   <CardActions>
-                    <Button size = "medium" color = "primary">Empreinte digitale</Button>
+                    <Button size="medium" color="primary">
+                      Empreinte digitale
+                    </Button>
                   </CardActions>
                   <CardActions>
-                    <Button size = "medium" color = "primary">Autre</Button>
+                    <Button size="medium" color="primary">
+                      Autre
+                    </Button>
                   </CardActions>
                 </div>
-                <Button size = "medium" color = "primary" variant="contained" style = {{left : '7vw', marginBottom : '1vw'}}>Ajouter un commentaire</Button>
+                <Button
+                  size="medium"
+                  color="primary"
+                  variant="contained"
+                  style={{ left: "7vw", marginBottom: "1vw" }}
+                >
+                  Ajouter un commentaire
+                </Button>
               </Card>
               <Card>
                 <CardContent>
-                  <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
-                      Données médicales
-                    </Typography>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Date de la visite : 
-                    </Typography><br/>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Taille : 
-                    </Typography>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Poids : 
-                    </Typography><br/>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Vaccins : 
-                    </Typography>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Groupe sanguin : 
-                    </Typography>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Allergie(s) : 
-                    </Typography><br/>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Maladies particulières : 
-                    </Typography><br/>
+                  <Typography
+                    color="textSecondary"
+                    variant="h1"
+                    gutterBottom
+                    style={styles.dialogText.title}
+                  >
+                    Données médicales
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Date de la visite :
+                  </Typography>
+                  <br />
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Taille :
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Poids :
+                  </Typography>
+                  <br />
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Vaccins :
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Groupe sanguin :
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Allergie(s) :
+                  </Typography>
+                  <br />
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Maladies particulières :
+                  </Typography>
+                  <br />
                 </CardContent>
-                <div style = {{display : 'flex', justifyContent: 'center' }}>
-                  <CardActions style = {styles.dialogActions}>
-                    <Button size = "medium" color = "primary">Dossiers médicaux</Button>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <CardActions style={styles.dialogActions}>
+                    <Button size="medium" color="primary">
+                      Dossiers médicaux
+                    </Button>
                   </CardActions>
                 </div>
-                <Button size = "medium" color = "primary" variant="contained" style = {{left : '3vw', marginBottom : '1vw'}} onClick={() => this.handleOpenMedical(this.state.id)}>Ajouter des données médicales</Button>
+                <Button
+                  size="medium"
+                  color="primary"
+                  variant="contained"
+                  style={{ left: "3vw", marginBottom: "1vw" }}
+                  onClick={() => this.handleOpenMedical(this.state.id)}
+                >
+                  Ajouter des données médicales
+                </Button>
               </Card>
               <Card>
                 <CardContent>
-                  <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
-                      Données professionnelles
-                    </Typography>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Diplômes : 
-                    </Typography>
-                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      Anciennes fonctions : 
-                    </Typography>
+                  <Typography
+                    color="textSecondary"
+                    variant="h1"
+                    gutterBottom
+                    style={styles.dialogText.title}
+                  >
+                    Données professionnelles
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Diplômes :
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    style={styles.dialogText.content}
+                  >
+                    Anciennes fonctions :
+                  </Typography>
                 </CardContent>
-                <div style = {{display : 'flex', justifyContent: 'center' }}>
-                  <CardActions style = {styles.dialogActions}>
-                    <Button size = "medium" color = "primary">Diplômes</Button>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <CardActions style={styles.dialogActions}>
+                    <Button size="medium" color="primary">
+                      Diplômes
+                    </Button>
                   </CardActions>
-                  <CardActions style = {styles.dialogActions}>
-                    <Button size = "medium" color = "primary">CV</Button>
+                  <CardActions style={styles.dialogActions}>
+                    <Button size="medium" color="primary">
+                      CV
+                    </Button>
                   </CardActions>
-                  <CardActions style = {styles.dialogActions}>
-                    <Button size = "medium" color = "primary">Autres</Button>
+                  <CardActions style={styles.dialogActions}>
+                    <Button size="medium" color="primary">
+                      Autres
+                    </Button>
                   </CardActions>
                 </div>
-                <Button size = "medium" color = "primary" variant="contained" style = {{left : '8vw', marginBottom : '1vw'}}>Ajouter un diplôme</Button><br/>
-                <Button size = "medium" color = "primary" variant="contained" style = {{left : '9.5vw', marginBottom : '1vw'}}>Ajouter un CV</Button>
+                <Button
+                  size="medium"
+                  color="primary"
+                  variant="contained"
+                  style={{ left: "8vw", marginBottom: "1vw" }}
+                >
+                  Ajouter un diplôme
+                </Button>
+                <br />
+                <Button
+                  size="medium"
+                  color="primary"
+                  variant="contained"
+                  style={{ left: "9.5vw", marginBottom: "1vw" }}
+                >
+                  Ajouter un CV
+                </Button>
               </Card>
             </div>
           </Dialog>
         </div>
-      )
+      );
     } catch {
-      return (
-        <div />
-      )
+      return <div />;
     }
-  }
+  };
 
   renderMedicalDialog = () => {
     try {
@@ -352,13 +511,18 @@ export default class AddIdentity extends Component {
           <Dialog
             onClose={this.handleCloseMed}
             open={this.state.openMedical}
-            style = {styles.dialog}
-            fullWidth = {true}
-            maxWidth = {'sm'}
+            style={styles.dialog}
+            fullWidth={true}
+            maxWidth={"sm"}
           >
             <Card>
               <CardContent>
-                <Typography color="textSecondary" variant = 'h3' gutterBottom style = {styles.dialogText.titleMed}>
+                <Typography
+                  color="textSecondary"
+                  variant="h3"
+                  gutterBottom
+                  style={styles.dialogText.titleMed}
+                >
                   Nouvelles données médicales
                 </Typography>
                 <TextField
@@ -376,7 +540,8 @@ export default class AddIdentity extends Component {
                   label="Poids"
                   style={styles.textFields.medicalSmall}
                   onChange={this.handleInputChange.bind(this)}
-                /><br />
+                />
+                <br />
                 <TextField
                   key="21"
                   name="vaccinNew"
@@ -400,39 +565,52 @@ export default class AddIdentity extends Component {
                   label="Allergie(s)"
                   style={styles.textFields.medicalSmall}
                   onChange={this.handleInputChange.bind(this)}
-                /><br />
+                />
+                <br />
                 <TextField
                   key="20"
                   name="commentairesNew"
                   defaultValue=""
                   multiline
                   fullWidth
-                  rows='2'
+                  rows="2"
                   label="Commentaires"
                   style={styles.textFields.medicalLarg}
                   onChange={this.handleInputChange.bind(this)}
-                /><br />
+                />
+                <br />
                 <DropzoneArea
-                  key='fileNewMed'
-                  name='fileNewMed'
+                  key="fileNewMed"
+                  name="fileNewMed"
                   filesLimit={1}
                   showFileNamesInPreview={false}
-                  dropzoneText='Ajouter une radios, une ordonnance, ou autres'
-                  style = {styles.dropzoneMed}
+                  dropzoneText="Ajouter une radios, une ordonnance, ou autres"
+                  style={styles.dropzoneMed}
                   onChange={this.handleChangeMed.bind(this)}
                 />
-                <Button size = "medium" color = "primary" variant="contained" style = {{left : '41%',marginTop: '1vw', marginBottom : '0.3vw'}} onClick = {this.handleSendMed()}>Envoyer</Button><br/>
+                <Button
+                  size="medium"
+                  color="primary"
+                  variant="contained"
+                  style={{
+                    left: "41%",
+                    marginTop: "1vw",
+                    marginBottom: "0.3vw"
+                  }}
+                  onClick={this.handleSendMed()}
+                >
+                  Envoyer
+                </Button>
+                <br />
               </CardContent>
             </Card>
           </Dialog>
         </div>
-      )
+      );
     } catch {
-      return (
-        <div />
-      )
+      return <div />;
     }
-  }
+  };
 
   render() {
     return (
@@ -446,87 +624,87 @@ export default class AddIdentity extends Component {
           {this.displayTxResult()}
         </MuiThemeProvider>
       </div>
-    )
+    );
   }
 }
-  
+
 const styles = {
   paper: {
-    marginTop : '1vw',
-    marginBottom : '1vw'
+    marginTop: "1vw",
+    marginBottom: "1vw"
   },
-  ou : {
-    paddingTop : '1vw'
+  ou: {
+    paddingTop: "1vw"
   },
   textFields: {
     id: {
-      marginTop : '1vw',
-      marginRight : '1vw',
-      marginLeft : '1vw',
-      marginBottom : '1vw',
-      width : '16vw'
+      marginTop: "1vw",
+      marginRight: "1vw",
+      marginLeft: "1vw",
+      marginBottom: "1vw",
+      width: "16vw"
     },
-    medicalSmall : {
-      width : '13vw',
-      marginTop: '0.5vw',
-      marginRight: '0.8vw'
+    medicalSmall: {
+      width: "13vw",
+      marginTop: "0.5vw",
+      marginRight: "0.8vw"
     },
-    medicalLarg : {
-      width : '26.8vw',
-      marginTop: '0.5vw',
-      marginRight: '0.8vw',
-      marginBottom : '1vw'
-    },    
+    medicalLarg: {
+      width: "26.8vw",
+      marginTop: "0.5vw",
+      marginRight: "0.8vw",
+      marginBottom: "1vw"
+    }
   },
-  dropzoneMed : {
-    marginTop : '2vw',
-    width : '45px',
-    maxHeight : '40px',
-    textAlign : 'center'
+  dropzoneMed: {
+    marginTop: "2vw",
+    width: "45px",
+    maxHeight: "40px",
+    textAlign: "center"
   },
   button: {
-    send : {
-      marginLeft: '5vw',
-      paddingBottom: '1vw',
-      size : 'medium',
+    send: {
+      marginLeft: "5vw",
+      paddingBottom: "1vw",
+      size: "medium"
     },
-    fingerprint : {
-      marginTop : '1vw',
-      marginRight : '1vw',
-      marginLeft : '1vw',
-      marginBottom : '1vw',
-      size : 'medium',
+    fingerprint: {
+      marginTop: "1vw",
+      marginRight: "1vw",
+      marginLeft: "1vw",
+      marginBottom: "1vw",
+      size: "medium"
     }
   },
   dialog: {
     // maxWidth : '350vw'
   },
-  dialogActions :{
-    paddingBottom :'0.5vw'
+  dialogActions: {
+    paddingBottom: "0.5vw"
   },
-  dialogText : {
-    title : {
-      fontSize : '2vw',
-      display : 'flex',
-      justifyContent : 'space-between'
+  dialogText: {
+    title: {
+      fontSize: "2vw",
+      display: "flex",
+      justifyContent: "space-between"
     },
-    titleMed :{
-      fontSize : '1vw',
-      textAlign : 'center'
+    titleMed: {
+      fontSize: "1vw",
+      textAlign: "center"
     },
     content: {
-      fontSize : '1vw'
+      fontSize: "1vw"
     },
-    line : {
-      display :'flex'
+    line: {
+      display: "flex"
     }
   },
-  image : {
-    maxWidth: '100px',
-    maxHeight : '250px',
-    textAlign : 'right',
-    marginTop: '5px',
+  image: {
+    maxWidth: "100px",
+    maxHeight: "250px",
+    textAlign: "right",
+    marginTop: "5px",
     // backgroundSize : 'cover'
-    backgroundImage : `url(${Enfant})`
+    backgroundImage: `url(${Enfant})`
   }
-}
+};
