@@ -7,7 +7,8 @@ contract Validator {
     struct Identity
     {
         mapping (address => bool) canCreateNewIdentity;
-        bytes32 hashStructure;
+        bytes32 hashStructure1;
+        bytes32 hashStructure2;
         uint256 birthDate;
         bytes32 placeOfBirth;
         //bytes32 hashDataFingerPrint;
@@ -21,7 +22,7 @@ contract Validator {
     event newOwner(address actionBy,address newOwner);
     event newValidator(bytes32 uuid,address registerBy, address NewValidator);
     event formerValidator(bytes32 uuid, address deleteBy, address validatorToDelete);
-    event addIdentity(bytes32 id, address NewIdentity, uint256 BirthDate, bytes32 PlaceOfBirth, bytes32 HashUuidParents, bytes32 HashBirthCertificate, bytes32 HashPackageInformationOffChain);
+    event addIdentity(bytes32 idSender, bytes32 id, bytes32 HashStructure1, bytes32 HashStructure2, address NewIdentity, uint256 BirthDate, bytes32 PlaceOfBirth, bytes32 HashUuidParents, bytes32 HashBirthCertificate);
     
     mapping (bytes32 => Identity) uuid;
     
@@ -72,32 +73,31 @@ contract Validator {
         }
     }
     
-    function newIdentity (bytes32 id, bytes32 HashStructure, address NewIdentity, uint256 BirthDate, bytes32 PlaceOfBirth, bytes32 HashUuidParents, bytes32 HashBirthCertificate, bytes32 HashPackageInformationOffChain) public {
-        require (uuid[id].canCreateNewIdentity[msg.sender] = true);
-        uuid[id].hashStructure=HashStructure;
+    function newIdentity (bytes32 idSender, bytes32 id, bytes32 HashStructure1, bytes32 HashStructure2, address NewIdentity, uint256 BirthDate, bytes32 PlaceOfBirth, bytes32 HashUuidParents, bytes32 HashBirthCertificate) public {
+        require (uuid[idSender].canCreateNewIdentity[msg.sender] = true);
+        uuid[id].hashStructure1=HashStructure1;
+        uuid[id].hashStructure2=HashStructure2;
         uuid[id].canCreateNewIdentity[NewIdentity]=false;
         uuid[id].birthDate=BirthDate;
         uuid[id].placeOfBirth=PlaceOfBirth;
         uuid[id].hashUuidParents=HashUuidParents;
         uuid[id].hashBirthCertificate=HashBirthCertificate;
-        uuid[id].hashPackageInformationOffChain=HashPackageInformationOffChain;
-        emit addIdentity(id, NewIdentity, BirthDate, PlaceOfBirth, HashUuidParents, HashBirthCertificate, HashPackageInformationOffChain);
+        emit addIdentity(idSender, id, HashStructure1, HashStructure2, NewIdentity, BirthDate, PlaceOfBirth, HashUuidParents, HashBirthCertificate);
     }
     
-    function updateOffChainInformation (bytes32 id, address validator, bytes32 newHashPackageInformationOffChain) public returns (bool){
-        require (uuid[id].canCreateNewIdentity[validator]== true);
-        uuid[id].hashPackageInformationOffChain=newHashPackageInformationOffChain;
+    function updateHashStructure (bytes32 idSender, bytes32 id, bytes32 newHashStructure1, bytes32 newHashStructure2) public returns (bool){
+        require (uuid[idSender].canCreateNewIdentity[msg.sender]== true);
+        uuid[id].hashStructure1=newHashStructure1;
+        uuid[id].hashStructure2=newHashStructure2;
         return(true);
     }
     
-    function updateHashStructure (bytes32 id, address validator, bytes32 newHashStructure) public returns (bool){
-        require (uuid[id].canCreateNewIdentity[validator]== true);
-        uuid[id].hashStructure=newHashStructure;
-        return(true);
+    function showHashStructure1(bytes32 id) public view returns (bytes32){
+        return (uuid[id].hashStructure1);
     }
     
-    function showHashStructure(bytes32 id) public view returns (bytes32){
-        return (uuid[id].hashStructure);
+    function showHashStructure2(bytes32 id) public view returns (bytes32){
+        return (uuid[id].hashStructure2);
     }
     
     
