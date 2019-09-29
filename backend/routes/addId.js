@@ -8,7 +8,7 @@ const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
 const address = '0x1223dE063742092E56Bd6FcE0683585B66c9005B'
 
 router.post('/', async function (req, res, next) {
-  var uuid_number = uuidv4().slice(32);
+  var uuid_number = uuidv4().slice(15);
   console.log(uuid_number)
   var nom = req.body.textFields.nom;
   var prenom = req.body.textFields.prenom;
