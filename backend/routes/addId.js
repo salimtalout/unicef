@@ -6,9 +6,11 @@ const uuidv4 = require("uuid/v4");
 var router = express.Router();
 const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
 const address = '0x1223dE063742092E56Bd6FcE0683585B66c9005B'
+//const keccak256 = require('keccak256');
 
 router.post('/', async function (req, res, next) {
   var uuid_number = uuidv4().slice(15);
+  var uuid_number2 = uuidv4().slice(15);
   console.log(uuid_number)
   var nom = req.body.textFields.nom;
   var prenom = req.body.textFields.prenom;
@@ -25,7 +27,7 @@ router.post('/', async function (req, res, next) {
   var photo = req.body.files.photo;
   var fingerprint = req.body.files.fingerprint;
   var autres = req.body.files.autres;
-  var uuid_juge = ethers.utils.formatBytes32String("0xabcd");
+  var uuid_juge = ethers.utils.formatBytes32String("de4261b1-a4a7-4662-92d5-5357");
 
   const content = {
     uuid: uuid_number,
@@ -52,7 +54,7 @@ router.post('/', async function (req, res, next) {
   const date = Date.now();
   console.log(date)
   console.log(hash)
-  tx_hash = await sendTransaction(uuid_juge, ethers.utils.formatBytes32String(uuid_number), ethers.utils.formatBytes32String(hash1), ethers.utils.formatBytes32String(hash2), address, date, ethers.utils.formatBytes32String(lieuNaissance), ethers.utils.formatBytes32String(uuid_number), ethers.utils.formatBytes32String(uuid_number));
+  tx_hash = await sendTransaction(uuid_juge, ethers.utils.formatBytes32String(uuid_number), ethers.utils.formatBytes32String(hash1), ethers.utils.formatBytes32String(hash2), address, date, ethers.utils.formatBytes32String(lieuNaissance), ethers.utils.formatBytes32String(uuid_number2), ethers.utils.formatBytes32String(('hex')));
   console.log(tx_hash)
   res.send()
 });
