@@ -26,15 +26,10 @@ export default class AddIdentity extends Component {
       id : 'f02-a13f-a7feb5d48a28',
       loading : false,
       answer : false,
-<<<<<<< HEAD
       open: true,
       openNum: null,
       openMedical: true,
       openMedicalNum: null
-=======
-      open: false,
-      openNum: null
->>>>>>> 858da1ae5e9be6be60b31cd03a0ee9e65514b179
     }
   }
 
