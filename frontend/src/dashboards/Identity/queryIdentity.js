@@ -27,14 +27,16 @@ export default class AddIdentity extends Component {
       id : 'f02-a13f-a7feb5d48a28',
       loading : false,
       answer : false,
-      open: true,
+      open: false,
       openNum: null,
-      openMedical: true,
+      openMedical: false,
       openMedicalNum: null,
+      files: [[]],
       tailleNew : '',
       poidsNew : '',
       commentairesNew: '',
       fileNewMed: null,
+
     }
   }
 
@@ -168,13 +170,17 @@ export default class AddIdentity extends Component {
             'id' : id
         })
       })
+      .then(res => res.json())
+      .then(values => {
+        this.setState({ files: values });
+      })
       .then(() => {
         this.setState({
           loading: false,
           answer: true,
+          open: true,
         })
       })
-      .then(() => window.location.reload());
     }
     
     displayItems = () => {
@@ -212,44 +218,44 @@ export default class AddIdentity extends Component {
                   {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       ID : 
-                    </Typography>
+                    </Typography>{this.state.files.uuid}
                     <div style = {{display : 'flex',}}>
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                         Nom : 
-                      </Typography>
+                      </Typography>{this.state.files.nom}
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                         Prénom : 
-                      </Typography>
+                      </Typography>{this.state.files.prenom}
                     </div>
                     <div style = {{display : 'flex',}}>
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                         Sexe de naissance : 
-                      </Typography>
+                      </Typography>{this.state.files.sexe}
                       <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                         Date de naissance : 
-                      </Typography>
+                      </Typography>{this.state.files.dateNaissance}
                     </div>
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Ville et pays de naissance : 
-                    </Typography>
+                    </Typography>{this.state.files.lieuNaissance}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Couleur des yeux :
-                    </Typography>
+                    </Typography>{this.state.files.couleurYeux}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Nom et prénom du parent 1 :
-                    </Typography>
+                    </Typography>{this.state.files.parent1}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Nom et prénom du parent 2 :
-                    </Typography>
+                    </Typography>{this.state.files.parent2}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Nom(s) et prénom(s) des enfants (optionnel) :
-                    </Typography>
+                    </Typography>{this.state.files.enfants}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Signature de l'oracle (juge, chef du village, officiel, etc.) :
-                    </Typography>
+                    </Typography>{this.state.files.signatureOracle}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
                       Commentaire :
-                    </Typography>
+                    </Typography>{this.state.files.commentaire}
                   {/* </DialogContent> */}
                 </CardContent>
                 <div style = {{display : 'flex', justifyContent: 'center' }}>
@@ -431,6 +437,7 @@ export default class AddIdentity extends Component {
   render() {
     return (
       <div style={styles.root}>
+        {console.log(this.state.files)}
         <Header />
         <MuiThemeProvider theme={muiTheme}>
           {this.displayItems()}
