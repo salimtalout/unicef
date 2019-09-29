@@ -6,7 +6,7 @@ const uuidv4 = require("uuid/v4");
 var router = express.Router();
 const ipfs = ipfsClient("localhost", "5001", { protocol: "http" });
 const address = '0x1223dE063742092E56Bd6FcE0683585B66c9005B'
-const keccak256 = require('keccak256');
+//const keccak256 = require('keccak256');
 
 router.post('/', async function (req, res, next) {
   var uuid_number = uuidv4().slice(15);
