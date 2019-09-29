@@ -12,6 +12,7 @@ var addIdRouter = require('./routes/addId');
 var editIdRouter = require('./routes/editId');
 var getIdRouter = require('./routes/getId');
 var getAllRouter = require('./routes/getAll');
+var addMedicalRouter = require('./routes/addMedical');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/addId', addIdRouter);
 app.use('/editId', editIdRouter);
 app.use('/getId', getIdRouter);
 app.use('/getAll', getAllRouter);
+app.use('/addMedical', addIdRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

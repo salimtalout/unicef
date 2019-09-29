@@ -62,8 +62,32 @@ export default class AddIdentity extends Component {
     this.setState({ openMedical: true, openMedicalNum: id});
   };
 
-  handleSendMed = (id,tailleNew, poidsNew, commentairesNew, filesNewMed) => {
-    // Appeler handleCloseMed() pour fermer la / les boites de dialogue à l'envoi des fichiers
+  handleSendMed = async(id,tailleNew, poidsNew, commentairesNew, filesNewMed) => {
+    this.setState({ loading: true });
+    await fetch('http://localhost:3000/addMedical', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        files: {
+          "medical": filesNewMed,
+        },
+        textFields: {
+          "id": id,
+          "tailleNew": tailleNew,
+          "poidsNew": poidsNew,
+          "commentairesNew": commentairesNew
+        }
+      })
+    })
+      .then(() => {
+        this.setState({
+          loading: false,
+          answer: true,
+        })
+      })
+      .then(() => window.location.reload());
   }
 
   handleChangeMed = (filesNewMed) => {
@@ -418,7 +442,7 @@ export default class AddIdentity extends Component {
                   style = {styles.dropzoneMed}
                   onChange={this.handleChangeMed.bind(this)}
                 />
-                <Button size = "medium" color = "primary" variant="contained" style = {{left : '41%',marginTop: '1vw', marginBottom : '0.3vw'}} onClick = {this.handleSendMed()}>Envoyer</Button><br/>
+                <Button size = "medium" color = "primary" variant="contained" style = {{left : '41%',marginTop: '1vw', marginBottom : '0.3vw'}} onClick={this.handleSendMed(this.state.id,this.state.tailleNew, this.state.poidsNew, this.state.commentairesNew, this.state.filesNewMed)}>Envoyer</Button><br/>
               </CardContent>
             </Card>
           </Dialog>
