@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/CardContent';
@@ -15,6 +16,8 @@ import Header from '../../header/header';
 import Loading from '../loading';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Search from '@material-ui/icons/Search';
+import Photo from '@material-ui/icons/Photo';
+import Enfant from '../../images/enfant.jpg';
 
 export default class AddIdentity extends Component {
   constructor(props) {
@@ -154,6 +157,7 @@ export default class AddIdentity extends Component {
                     <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
                       Identité
                     </Typography>
+                    <div style = {styles.image}/>
                   {/* </DialogTitle> */}
                   {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
@@ -198,9 +202,20 @@ export default class AddIdentity extends Component {
                     </Typography>
                   {/* </DialogContent> */}
                 </CardContent>
-                <CardActions>
-                  <Button size = "small" color = "primary">Données médicales</Button>
-                </CardActions>
+                <div style = {{display : 'flex'}}>
+                  <CardActions style = {styles.dialogActions}>
+                    <Button size = "medium" color = "primary">Acte de naissance</Button>
+                  </CardActions>
+                  <CardActions>
+                    <Button size = "medium" color = "primary">Photo</Button>
+                  </CardActions>
+                  <CardActions>
+                    <Button size = "medium" color = "primary">Empreinte digitale</Button>
+                  </CardActions>
+                  <CardActions>
+                    <Button size = "medium" color = "primary">Autre</Button>
+                  </CardActions>
+                </div>
               </Card>
               <Card>
                 <CardContent>
@@ -291,9 +306,14 @@ const styles = {
   dialog: {
     // maxWidth : '350vw'
   },
+  dialogActions :{
+    paddingBottom :'0.5vw'
+  },
   dialogText : {
     title : {
-      fontSize : '2vw'
+      fontSize : '2vw',
+      display : 'flex',
+      justifyContent : 'space-between'
     },
     content: {
       fontSize : '1vw'
@@ -301,5 +321,13 @@ const styles = {
     line : {
       display :'flex'
     }
+  },
+  image : {
+    maxWidth: '100px',
+    maxHeight : '250px',
+    textAlign : 'right',
+    marginTop: '5px',
+    // backgroundSize : 'cover'
+    // backgroundImage : url()
   }
 }
