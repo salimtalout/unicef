@@ -24,9 +24,9 @@ export default class AddIdentity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "f02-a13f-a7feb5d48a28",
-      loading: false,
-      answer: false,
+      id : '2c4-9e7e-8cfaf361f36b',
+      loading : false,
+      answer : false,
       open: false,
       openNum: null,
       openMedical: false,
@@ -205,123 +205,58 @@ export default class AddIdentity extends Component {
             fullWidth={true}
             maxWidth={"xl"}
           >
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style = {{display : 'flex', justifyContent : 'center'}}>
+              <Card style = {{justifiContent : 'center'}}>
+                <img alt="child" src = {Enfant} style={styles.image}/><br/>
+                <Button size = "big" variant = "contained" color = "primary" href ='https://kovan.etherscan.io/address/0x40eeb80c81bf08505643e621553c698b3f6348dc#events' target="_blank" rel="noopener noreferrer" style = {{marginLeft : '2vw'}} >Blockchain</Button>
+              </Card>
               <Card>
                 <CardContent>
-                  {/* <DialogTitle id="customized-dialog-title"> */}
-                  <Typography
-                    color="textSecondary"
-                    variant="h1"
-                    gutterBottom
-                    style={styles.dialogText.title}
-                  >
-                    Identité
-                  </Typography>
-                  <div style={styles.image} />
-                  {/* </DialogTitle> */}
-                  {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    ID :
-                  </Typography>
-                  {this.state.files.uuid}
-                  <div style={{ display: "flex" }}>
-                    <Typography
-                      color="textSecondary"
-                      gutterBottom
-                      style={styles.dialogText.content}
-                    >
-                      Nom :
+                    <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
+                      Identité
                     </Typography>
-                    {this.state.files.nom}
-                    <Typography
-                      color="textSecondary"
-                      gutterBottom
-                      style={styles.dialogText.content}
-                    >
-                      Prénom :
+                    <div style = {styles.image}/>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>ID : </strong>{' '}{this.state.files.uuid}</a>
                     </Typography>
-                    {this.state.files.prenom}
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    <Typography
-                      color="textSecondary"
-                      gutterBottom
-                      style={styles.dialogText.content}
-                    >
-                      Sexe de naissance :
+                    <div style = {{display : 'flex',}}>
+                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                        
+                        <a style = {styles.content.titles}><strong>Nom : </strong>{' '}{this.state.files.nom}</a>
+                      </Typography>
+                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                        <a style = {styles.content.titles}><strong>Prénom : </strong>{' '}{this.state.files.prenom}</a>
+                      </Typography>
+                    </div>
+                    <div style = {{display : 'flex',}}>
+                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}> 
+                        <a style = {styles.content.titles}><strong>Sexe de naissance :</strong>{' '}{this.state.files.sexe}</a>
+                      </Typography>
+                      <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                        <a style = {styles.content.titles}><strong>Date de naissance :</strong>{' '}{this.state.files.dateNaissance}</a>
+                      </Typography>
+                    </div>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>Ville et pays de naissance : </strong>{' '}{this.state.files.lieuNaissance}</a>
                     </Typography>
-                    {this.state.files.sexe}
-                    <Typography
-                      color="textSecondary"
-                      gutterBottom
-                      style={styles.dialogText.content}
-                    >
-                      Date de naissance :
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>Couleur des yeux : </strong>{' '}{this.state.files.couleurYeux}</a>
                     </Typography>
-                    {this.state.files.dateNaissance}
-                  </div>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Ville et pays de naissance :
-                  </Typography>
-                  {this.state.files.lieuNaissance}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Couleur des yeux :
-                  </Typography>
-                  {this.state.files.couleurYeux}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Nom et prénom du parent 1 :
-                  </Typography>
-                  {this.state.files.parent1}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Nom et prénom du parent 2 :
-                  </Typography>
-                  {this.state.files.parent2}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Nom(s) et prénom(s) des enfants (optionnel) :
-                  </Typography>
-                  {this.state.files.enfants}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Signature de l'oracle (juge, chef du village, officiel,
-                    etc.) :
-                  </Typography>
-                  {this.state.files.signatureOracle}
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    style={styles.dialogText.content}
-                  >
-                    Commentaire :
-                  </Typography>
-                  {this.state.files.commentaire}
-                  {/* </DialogContent> */}
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>Nom et prénom du parent 1 :</strong>{' '}{this.state.files.parent1}</a>
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>Nom et prénom du parent 2 :</strong>{' '}{this.state.files.parent2}</a>
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>Nom(s) et prénom(s) des enfants (optionnel) :</strong>{' '}{this.state.files.enfants}</a>
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                    <a style = {styles.content.titles}><strong>Signature de l'oracle (juge, chef du village, officiel, etc.) :</strong>{' '}{this.state.files.signatureOracle}</a>
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      <a style = {styles.content.titles}><strong>Commentaire :</strong>{' '}{this.state.files.commentaire}</a>
+                    </Typography>
                 </CardContent>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <CardActions style={styles.dialogActions}>
@@ -693,18 +628,27 @@ const styles = {
       textAlign: "center"
     },
     content: {
-      fontSize: "1vw"
+      fontSize : '1vw',
+      display : 'flex'
     },
     line: {
       display: "flex"
     }
   },
-  image: {
-    maxWidth: "100px",
-    maxHeight: "250px",
-    textAlign: "right",
-    marginTop: "5px",
+  image : {
+    maxWidth: '200px',
+    maxHeight : '450px',
+    textAlign : 'right',
+    marginTop: '5px',
+    marginRight: '5px',
+    marginLeft: '5px',
+    marginBottom: '15px',
     // backgroundSize : 'cover'
-    backgroundImage: `url(${Enfant})`
+    backgroundImage : `url(${Enfant})`
+  },
+  content : {
+    title : {
+      fontWeight : 'strong'
+    }
   }
 };
