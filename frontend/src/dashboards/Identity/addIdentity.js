@@ -114,7 +114,7 @@ export default class AddIdentity extends Component {
           <TextField
             name="lieuNaissance"
             key="9"
-            label="Lieu et pays de naissance"
+            label="Ville et pays de naissance"
             defaultValue="Michel"
             style={styles.textFields.large}
             onChange={this.handleInputChange.bind(this)}
