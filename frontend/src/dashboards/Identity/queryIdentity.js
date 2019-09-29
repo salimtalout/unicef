@@ -26,8 +26,10 @@ export default class AddIdentity extends Component {
       id : 'f02-a13f-a7feb5d48a28',
       loading : false,
       answer : false,
-      open: false,
-      openNum: null
+      open: true,
+      openNum: null,
+      openMedical: true,
+      openMedicalNum: null
     }
   }
 
@@ -42,6 +44,10 @@ export default class AddIdentity extends Component {
 
   handleClose = () => {
     this.setState({ open: false, openNum: null });
+  };
+
+  handleOpenMedical = (id) => {
+    this.setState({ openMedical: true, openMedicalNum: id});
   };
 
   displayTxResult = () => {
@@ -200,7 +206,7 @@ export default class AddIdentity extends Component {
                     </Typography>
                   {/* </DialogContent> */}
                 </CardContent>
-                <div style = {{display : 'flex'}}>
+                <div style = {{display : 'flex', justifyContent: 'center' }}>
                   <CardActions style = {styles.dialogActions}>
                     <Button size = "medium" color = "primary">Acte de naissance</Button>
                   </CardActions>
@@ -214,38 +220,89 @@ export default class AddIdentity extends Component {
                     <Button size = "medium" color = "primary">Autre</Button>
                   </CardActions>
                 </div>
+                <Button size = "medium" color = "primary" variant="contained" style = {{left : '7vw', marginBottom : '1vw'}}>Ajouter un commentaire</Button>
               </Card>
               <Card>
                 <CardContent>
                   <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
                       Données médicales
                     </Typography>
-                  {/* </DialogTitle> */}
-                  {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      ID : 
-                  </Typography><br/>
+                      Date de la visite : 
+                    </Typography><br/>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Taille et poids : 
+                    </Typography><br/>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Vaccins : 
+                    </Typography><br/>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Maladies particulières : 
+                    </Typography><br/>
                 </CardContent>
-                <CardActions>
-                  <Button size = "small" color = "primary">Données médicales</Button>
-                </CardActions>
+                <div style = {{display : 'flex', justifyContent: 'center' }}>
+                  <CardActions style = {styles.dialogActions}>
+                    <Button size = "medium" color = "primary">Dossiers médicaux</Button>
+                  </CardActions>
+                </div>
+                <Button size = "medium" color = "primary" variant="contained" style = {{left : '3vw', marginBottom : '1vw'}} onClick={() => this.handleOpenMedical(this.state.id)}>Ajouter des données médicales</Button>
               </Card>
               <Card>
                 <CardContent>
                   <Typography color="textSecondary" variant = 'h1' gutterBottom style = {styles.dialogText.title}>
                       Données professionnelles
                     </Typography>
-                  {/* </DialogTitle> */}
-                  {/* <DialogContent id="customized-dialog-title" style = {styles.dialogText.line} > */}
                     <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
-                      ID : 
-                  </Typography><br/>
+                      Diplômes : 
+                    </Typography>
+                    <Typography color="textSecondary" gutterBottom style = {styles.dialogText.content}>
+                      Anciennes fonctions : 
+                    </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size = "small" color = "primary">Données médicales</Button>
-                </CardActions>
+                <div style = {{display : 'flex', justifyContent: 'center' }}>
+                  <CardActions style = {styles.dialogActions}>
+                    <Button size = "medium" color = "primary">Diplômes</Button>
+                  </CardActions>
+                  <CardActions style = {styles.dialogActions}>
+                    <Button size = "medium" color = "primary">CV</Button>
+                  </CardActions>
+                  <CardActions style = {styles.dialogActions}>
+                    <Button size = "medium" color = "primary">Autres</Button>
+                  </CardActions>
+                </div>
+                <Button size = "medium" color = "primary" variant="contained" style = {{left : '8vw', marginBottom : '1vw'}}>Ajouter un diplôme</Button><br/>
+                <Button size = "medium" color = "primary" variant="contained" style = {{left : '9.5vw', marginBottom : '1vw'}}>Ajouter un CV</Button>
               </Card>
             </div>
+          </Dialog>
+        </div>
+      )
+    } catch {
+      return (
+        <div />
+      )
+    }
+  }
+
+  renderMedicalDialog = () => {
+    try {
+      return (
+        <div>
+          <Dialog
+            onClose={this.handleClose}
+            // aria-labelledby="customized-dialog-title"
+            open={this.state.open}
+            style = {styles.dialog}
+            fullWidth = {true}
+            maxWidth = {'sm'}
+          >
+            <Card>
+              <CardContent>
+                <Typography color="textSecondary" variant = 'h3' gutterBottom style = {styles.dialogText.titleMed}>
+                  Nouvelles données médicales
+                </Typography>
+              </CardContent>
+            </Card>
           </Dialog>
         </div>
       )
@@ -263,6 +320,7 @@ export default class AddIdentity extends Component {
         <MuiThemeProvider theme={muiTheme}>
           {this.displayItems()}
           {this.renderDialog()}
+          {this.renderMedicalDialog()}
           {this.displayTxResult()}
         </MuiThemeProvider>
       </div>
@@ -313,6 +371,10 @@ const styles = {
       display : 'flex',
       justifyContent : 'space-between'
     },
+    titleMed :{
+      fontSize : '1vw',
+      textAlign : 'center'
+    },
     content: {
       fontSize : '1vw'
     },
@@ -326,6 +388,6 @@ const styles = {
     textAlign : 'right',
     marginTop: '5px',
     // backgroundSize : 'cover'
-    // backgroundImage : url()
+    backgroundImage : `url(${Enfant})`
   }
 }
